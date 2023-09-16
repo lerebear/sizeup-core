@@ -1,0 +1,35 @@
+{
+  "name": "sizeup",
+  "version": "0.1.0",
+  "description": "A library for estimating how easy a pull request will be to review",
+  "author": "Ọlálérè Williams",
+  "homepage": "https://github.com/lerebear/sizeup",
+  "bugs": "https://github.com/lerebear/sizeup/issues",
+  "license": "MIT",
+  "main": "dist/sizeup.js",
+  "devDependencies": {
+    "@types/chai": "^4.3.6",
+    "@types/mocha": "^10.0.1",
+    "@types/node": "^20.6.2",
+    "@typescript-eslint/eslint-plugin": "^6.7.0",
+    "@typescript-eslint/parser": "^6.7.0",
+    "chai": "^4.3.8",
+    "eslint": "^8.49.0",
+    "mocha": "^10.2.0",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "minimatch": "^9.0.3",
+    "parse-diff": "^0.11.1",
+    "yaml": "^2.3.2"
+  },
+  "scripts": {
+    "build": "npx tsc && npm run copy-assets",
+    "lint": "eslint . --ext .ts --config .eslintrc",
+    "copy-assets": "mkdir -p dist/config && cp -r src/config dist",
+    "postinstall": "npm run build",
+    "posttest": "npm run lint",
+    "test": "mocha \"test/**/*.test.ts\""
+  }
+}
