@@ -1,0 +1,27 @@
+{
+  "name": "sizeup",
+  "version": "0.0.0",
+  "description": "A library for estimating how easy a pull request will be to review",
+  "author": "Lérè Williams",
+  "devDependencies": {
+    "@types/chai": "^4.3.6",
+    "@types/mocha": "^10.0.1",
+    "@types/node": "^20.6.2",
+    "@typescript-eslint/eslint-plugin": "^6.7.0",
+    "@typescript-eslint/parser": "^6.7.0",
+    "chai": "^4.3.8",
+    "eslint": "^8.49.0",
+    "mocha": "^10.2.0",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "octokit": "^3.1.0",
+    "parse-diff": "^0.11.1"
+  },
+  "scripts": {
+    "lint": "eslint . --ext .ts --config .eslintrc",
+    "posttest": "npm run lint",
+    "test": "mocha \"test/**/*.test.ts\""
+  }
+}
