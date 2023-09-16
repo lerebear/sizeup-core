@@ -9,6 +9,13 @@ import * as difflib from 'parse-diff'
 export default class Changeset {
   files: difflib.File[]
 
+  /**
+   * Fetches a set of changes from a GitHub pull request URL.
+   *
+   * @param url a pull request URL on GitHub e.g. "https://github.com/lerebear/sizeup/pull/1"
+   * @param client an authenticated Octokit client
+   * @returns a changeset
+   */
   static async fetch(url: string, client: Octokit): Promise<Changeset> {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [_scheme, _blank, _domain, repoOwner, repoName, _path, pullRequestNumber] = url.split('/')
@@ -24,6 +31,9 @@ export default class Changeset {
     return new Changeset(data as unknown as string)
   }
 
+  /**
+   * @param diff code changes in the .diff format
+   */
   constructor(diff: string) {
     this.files = difflib(diff)
   }
