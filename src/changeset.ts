@@ -1,5 +1,7 @@
 import {Octokit} from 'octokit'
+import File from './file'
 import * as difflib from 'parse-diff'
+import { Linguist } from './language'
 
 /**
  * This class represents changes to code whose reviewability we will attempt to
@@ -7,7 +9,7 @@ import * as difflib from 'parse-diff'
  * from the files staged for commit in a local git repository.
  */
 export default class Changeset {
-  files: difflib.File[]
+  files: File[]
 
   /**
    * Fetches a set of changes from a GitHub pull request URL.
@@ -35,6 +37,12 @@ export default class Changeset {
    * @param diff code changes in the .diff format
    */
   constructor(diff: string) {
-    this.files = difflib(diff)
+    this.files = difflib(diff).map((file) => {
+      return {
+        ...file,
+        filename: (file.to || file.from)!,
+        language: Linguist.detect(file)
+      }
+    })
   }
 }
