@@ -95,9 +95,9 @@ describe("CommentLines", () => {
   const typescriptFeature = new CommentLines(typescriptChangeset)
   const javascriptFeature = new CommentLines(javascriptChangeset)
 
-  describe("#variableName", () => {
+  describe(".variableName", () => {
     it("should return the kebab-cased named of the class", () => {
-      expect(rubyFeature.variableName()).to.equal("comment-lines")
+      expect(CommentLines.variableName()).to.equal("comment-lines")
     })
   })
 

@@ -24,9 +24,9 @@ index c40f464..f548cfa 100644
 describe("AddedLines", () => {
   const feature = new AddedLines(changeset)
 
-  describe("#variableName", () => {
+  describe(".variableName", () => {
     it("should return the kebab-cased named of the class", () => {
-      expect(feature.variableName()).to.equal("added-lines")
+      expect(AddedLines.variableName()).to.equal("added-lines")
     })
   })
 

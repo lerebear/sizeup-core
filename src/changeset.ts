@@ -1,7 +1,7 @@
 import {Octokit} from 'octokit'
 import File from './file'
 import * as difflib from 'parse-diff'
-import { Linguist } from './language'
+import { Linguist } from './linguist'
 
 /**
  * This class represents changes to code whose reviewability we will attempt to

@@ -24,9 +24,9 @@ index 8aa27aa..fc65469 100644
 describe("WhitespaceLines", () => {
   const feature = new WhitespaceLines(changeset)
 
-  describe("#variableName", () => {
+  describe(".variableName", () => {
     it("should return the kebab-cased named of the class", () => {
-      expect(feature.variableName()).to.equal("whitespace-lines")
+      expect(WhitespaceLines.variableName()).to.equal("whitespace-lines")
     })
   })
 

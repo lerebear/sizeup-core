@@ -24,9 +24,9 @@ index c40f464..f548cfa 100644
 describe("RemovedLines", () => {
   const feature = new RemovedLines(changeset)
 
-  describe("#variableName", () => {
+  describe(".variableName", () => {
     it("should return the kebab-cased named of the class", () => {
-      expect(feature.variableName()).to.equal("removed-lines")
+      expect(RemovedLines.variableName()).to.equal("removed-lines")
     })
   })
 

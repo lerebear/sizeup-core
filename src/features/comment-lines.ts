@@ -1,6 +1,7 @@
 import Feature from '../feature'
-import {  Language } from '../language'
+import {  Language } from '../linguist'
 import * as difflib from 'parse-diff'
+import { FeatureRegistry } from '../registry'
 
 export default class CommentLines extends Feature {
   evaluate(): number {
@@ -51,3 +52,5 @@ export default class CommentLines extends Feature {
     return sum
   }
 }
+
+FeatureRegistry.set(CommentLines.variableName(), CommentLines)

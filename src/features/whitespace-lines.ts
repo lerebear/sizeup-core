@@ -1,4 +1,5 @@
 import Feature from '../feature'
+import { FeatureRegistry } from '../registry'
 
 export default class WhitespaceLines extends Feature {
   evaluate(): number {
@@ -21,3 +22,5 @@ export default class WhitespaceLines extends Feature {
     }, 0)
   }
 }
+
+FeatureRegistry.set(WhitespaceLines.variableName(), WhitespaceLines)

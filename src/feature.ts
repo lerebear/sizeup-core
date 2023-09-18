@@ -22,7 +22,7 @@ export default abstract class Feature {
    * @returns the name of this feature that can be used as a variable in scoring
    *   formulas
    */
-  variableName(): string {
-    return this.constructor.name.replace(/([a-z])([A-Z])/, '$1-$2').toLowerCase()
+  static variableName(): string {
+    return this.name.replace(/([a-z])([A-Z])/, '$1-$2').toLowerCase()
   }
 }
