@@ -16,11 +16,11 @@ export default class Changeset {
    * Fetches a set of changes from a GitHub pull request URL.
    *
    * @param url a GitHub pull request URL e.g. "https://github.com/lerebear/sizeup/pull/1"
-   * @param client an authenticated Octokit client
    * @param ignored a list of glob expressions for files to ignore in the pull request
+   * @param client an authenticated Octokit client
    * @returns a changeset
    */
-  static async fetch(url: string, client: Octokit, ignored: string[] = []): Promise<Changeset> {
+  static async fetch(url: string, ignored: string[] = [], client: Octokit): Promise<Changeset> {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [_scheme, _blank, _domain, repoOwner, repoName, _path, pullRequestNumber] = url.split('/')
 
