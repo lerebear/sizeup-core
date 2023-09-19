@@ -37,29 +37,60 @@ const OPERATORS: Operator[] = [
   },
 ]
 
-export class Result {
-  expression: string
-  score?: number
-  error?: ParsingError
-  substitutions: Map<string, number>
+interface Category {
+  name: string
+  lt?: number
+}
 
-  constructor(expression: string) {
-    this.expression = expression
-    this.score = undefined
-    this.error = undefined
-    this.substitutions = new Map()
+export class Score {
+  formula: string
+  value?: number
+  category?: string
+  error?: ParsingError
+  variableSubstitutions: Map<string, number>
+
+  constructor(formula: string) {
+    this.formula = formula
+    this.variableSubstitutions = new Map()
   }
 
   addError(error: ParsingError): void {
     this.error = error
   }
 
-  addScore(score: number): void {
-    this.score = score
+  addValue(value: number, categories?: Category[]): void {
+    this.value = value
+    this.category = Score.categorize(value, categories)
   }
 
-  addSubstitution(variableName: string, value: number): void {
-    this.substitutions.set(variableName, value)
+  recordVariableSubstitution(variableName: string, value: number): void {
+    this.variableSubstitutions.set(variableName, value)
+  }
+
+  static categorize(score: number, categories?: Category[]): string | undefined {
+    if (!categories) {
+      return
+    }
+
+    const sortedCategories = categories.sort((a, b) => {
+      if (a.lt && b.lt) {
+        return a.lt - b.lt
+      } else if (a.lt) {
+        return -1
+      } else if (b.lt) {
+        return 1
+      } else {
+        return 0
+      }
+    })
+
+    for (const category of sortedCategories) {
+      if (category.lt && score < category.lt) {
+        return category.name
+      }
+    }
+
+    return sortedCategories[sortedCategories.length - 1]?.name
   }
 }
 
@@ -70,8 +101,8 @@ export class Formula {
     this.expression = expression
   }
 
-  evaluate(changeset: Changeset): Result  {
-    const result = new Result(this.expression)
+  evaluate(changeset: Changeset, categories?: Category[]): Score  {
+    const result = new Score(this.expression)
     const stack: string[] = []
 
     for (const { token, index } of this.expression.split(/\s+/).map((token, index) => ({token, index}))) {
@@ -94,7 +125,7 @@ export class Formula {
       return result
     }
 
-    result.addScore(parseFloat(stack[0]))
+    result.addValue(parseFloat(stack[0]), categories)
     return result
   }
 
@@ -126,7 +157,7 @@ export class Formula {
     return !!token.match(NUMERIC_CONSTANT_RE)
   }
 
-  private applyOperator(result: Result, stack: string[], changeset: Changeset): void {
+  private applyOperator(result: Score, stack: string[], changeset: Changeset): void {
     let operator: Operator | undefined = undefined
     let operatorIndex: number | undefined = undefined
 
@@ -158,7 +189,7 @@ export class Formula {
         const feature = new FeatureClass(changeset)
         const value = feature.evaluate()
 
-        result.addSubstitution((FeatureClass as unknown as typeof Feature).variableName(), value)
+        result.recordVariableSubstitution((FeatureClass as unknown as typeof Feature).variableName(), value)
         numericOperands.push(value)
         continue
       }

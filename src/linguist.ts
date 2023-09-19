@@ -1,9 +1,5 @@
-import * as difflib from 'parse-diff'
-
 export class Linguist {
-  static detect(file: difflib.File): Language | undefined {
-    const filename = file.to || file.from
-
+  static detect(filename: string): Language | undefined {
     for (const language of SUPPORTED_LANGUAGES) {
       if (language.fileExtensions.filter((ext) => filename!.endsWith(`.${ext}`)).length > 0) {
         return language

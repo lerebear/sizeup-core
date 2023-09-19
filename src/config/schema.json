@@ -1,7 +1,7 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "title": "sizeup configuration file",
-    "description": "yaml configuration accepted by sizeup",
+    "title": "configuration",
+    "description": "YAML configuration accepted by sizeup",
     "type": "object",
     "properties": {
         "categories": {
@@ -39,11 +39,10 @@
                     "type": "object",
                     "properties": {
                         "strategy": {
-                            "description": "shorthand for a specific scoring configuration",
+                            "description": "shorthand for a specific scoring formula",
                             "type": "string",
                             "enum": [
-                                "default",
-                                "v2"
+                                "default"
                             ]
                         }
                     },

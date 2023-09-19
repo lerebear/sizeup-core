@@ -39,7 +39,7 @@ describe("Formula", () => {
       const result = formula.evaluate(changeset)
 
       expect(result.error, result.error?.message).to.be.undefined
-      expect(result.score).to.equal(8)
+      expect(result.value).to.equal(8)
     })
 
     it("should return the correct result for the default formula", () => {
@@ -47,7 +47,7 @@ describe("Formula", () => {
       const result = formula.evaluate(changeset)
 
       expect(result.error, result.error?.message).to.be.undefined
-      expect(result.score).to.equal(7)
+      expect(result.value).to.equal(7)
     })
   })
 })
