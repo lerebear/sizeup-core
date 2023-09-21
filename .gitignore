@@ -1,7 +1,6 @@
 **/.DS_Store
 *-debug.log
 *-error.log
-/dist
 /package-lock.json
 /tmp
 node_modules

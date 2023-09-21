@@ -6,6 +6,7 @@
   "homepage": "https://github.com/lerebear/sizeup",
   "bugs": "https://github.com/lerebear/sizeup/issues",
   "license": "MIT",
+  "main": "dist/src/sizeup.js",
   "devDependencies": {
     "@types/chai": "^4.3.6",
     "@types/mocha": "^10.0.1",
@@ -14,7 +15,6 @@
     "@typescript-eslint/parser": "^6.7.0",
     "chai": "^4.3.8",
     "eslint": "^8.49.0",
-    "json-schema-to-typescript": "^13.1.1",
     "mocha": "^10.2.0",
     "ts-node": "^10.9.1",
     "typescript": "^5.2.2"
@@ -27,7 +27,6 @@
   },
   "scripts": {
     "lint": "eslint . --ext .ts --config .eslintrc",
-    "generate-configuration-interface": "cat src/config/schema.json | npx json2ts > src/configuration.ts",
     "posttest": "npm run lint",
     "test": "mocha \"test/**/*.test.ts\""
   }
