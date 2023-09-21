@@ -6,7 +6,7 @@
   "homepage": "https://github.com/lerebear/sizeup",
   "bugs": "https://github.com/lerebear/sizeup/issues",
   "license": "MIT",
-  "main": "dist/src/sizeup.js",
+  "main": "dist/sizeup.js",
   "devDependencies": {
     "@types/chai": "^4.3.6",
     "@types/mocha": "^10.0.1",
