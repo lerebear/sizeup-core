@@ -6,8 +6,8 @@ import { minimatch } from 'minimatch'
 
 /**
  * This class represents changes to code whose reviewability we will attempt to
- * estimate. A changest often comes from a pull request, but it might also come
- * from the files staged for commit in a local git repository.
+ * estimate. A changest comes either from a pull request, or from the files
+ * staged for commit in a local git repository.
  */
 export default class Changeset {
   files: File[]
