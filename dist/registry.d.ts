@@ -1,5 +1,6 @@
 import Feature from "./feature";
 import Changeset from "./changeset";
-type FeatureClass = new (changeset: Changeset) => Feature;
+/** The collection of features that are available for use in an evaluation formula. */
 export declare const FeatureRegistry: Map<string, FeatureClass>;
+type FeatureClass = new (changeset: Changeset) => Feature;
 export {};

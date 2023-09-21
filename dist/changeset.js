@@ -10,26 +10,6 @@ const minimatch_1 = require("minimatch");
  */
 class Changeset {
     /**
-     * Fetches a set of changes from a GitHub pull request URL.
-     *
-     * @param url a GitHub pull request URL e.g. "https://github.com/lerebear/sizeup/pull/1"
-     * @param ignored a list of glob expressions for files to ignore in the pull request
-     * @param client an authenticated Octokit client
-     * @returns a changeset
-     */
-    static async fetch(url, ignored = [], client) {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const [_scheme, _blank, _domain, repoOwner, repoName, _path, pullRequestNumber] = url.split('/');
-        const { data } = await client.rest.pulls.get({
-            owner: repoOwner,
-            repo: repoName,
-            // eslint-disable-next-line camelcase
-            pull_number: Number.parseInt(pullRequestNumber, 10),
-            mediaType: { format: 'diff' },
-        });
-        return new Changeset(data, ignored);
-    }
-    /**
      * @param diff code changes in the .diff format
      * @param ignored a list of glob expressions describing files to ignore
      */

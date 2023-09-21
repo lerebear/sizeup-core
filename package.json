@@ -21,7 +21,6 @@
   },
   "dependencies": {
     "minimatch": "^9.0.3",
-    "octokit": "^3.1.0",
     "parse-diff": "^0.11.1",
     "yaml": "^2.3.2"
   },

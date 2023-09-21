@@ -1,7 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Linguist = void 0;
+/** A utility class for language-specific behaviour. */
 class Linguist {
+    /** Tries to match the given filename to a supported language based on its file extension. */
     static detect(filename) {
         for (const language of SUPPORTED_LANGUAGES) {
             if (language.fileExtensions.filter((ext) => filename.endsWith(`.${ext}`)).length > 0) {
