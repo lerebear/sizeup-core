@@ -32,7 +32,7 @@ const diff = (
 ).data as unknown as string
 
 const score = SizeUp.evaluate(diff)
-console.log(score.toString({ spacing: 2}))
+console.log(score.toString())
 ```
 
 The final log statement in that snippet will output a serialized `Score`:
