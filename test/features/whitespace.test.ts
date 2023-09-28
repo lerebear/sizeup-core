@@ -1,28 +1,10 @@
 import { expect } from "chai"
 import Changeset from "../../src/changeset"
 import Whitespace from "../../src/features/whitespace"
+import { loadFixture } from "../helpers/diff"
 
 describe("Whitespace", () => {
-  const changeset = new Changeset({
-    diff: `
-diff --git a/README.md b/README.md
-index 8aa27aa..fc65469 100644
---- a/README.md
-+++ b/README.md
-@@ -1,5 +1,12 @@
-  # Create a JavaScript Action Using TypeScript
-
-+Make a new thing
-+Try
-+
-+it
-+
-+now
-+
-`
-  })
-
-  const feature = new Whitespace(changeset)
+  const feature = new Whitespace(new Changeset({ diff: loadFixture("whitespace") }))
 
   describe(".variableName", () => {
     it("should return the kebab-cased named of the class", () => {
