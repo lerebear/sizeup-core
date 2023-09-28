@@ -25,7 +25,9 @@
     "yaml": "^2.3.2"
   },
   "scripts": {
+    "build": "npx tsc",
     "lint": "eslint . --ext .ts --config .eslintrc",
+    "postinstall": "npm run build",
     "posttest": "npm run lint",
     "test": "mocha \"test/**/*.test.ts\""
   }

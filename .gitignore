@@ -3,4 +3,5 @@
 *-error.log
 /package-lock.json
 /tmp
+/dist
 node_modules
