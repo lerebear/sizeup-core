@@ -50,4 +50,7 @@ export declare class Score {
      * @param value The value we used for the variable
      */
     recordVariableSubstitution(variableName: string, value: number): void;
+    toString({ spacing }: {
+        spacing?: string | number;
+    }): string;
 }

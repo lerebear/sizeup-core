@@ -16,7 +16,7 @@ class SizeUp {
      * @param configFile Path to a configuration file containing options for how to evaluate the pull
      *   request.
      */
-    static async evaluate(diff, configFile) {
+    static evaluate(diff, configFile) {
         var _a;
         const config = configFile ? YAML.parse(fs.readFileSync(configFile, "utf8")) : {};
         const ignoredFilePatterns = config.ignored || default_1.DefaultConfiguration.ignored;

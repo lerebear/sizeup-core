@@ -37,5 +37,15 @@ class Score {
     recordVariableSubstitution(variableName, value) {
         this.variableSubstitutions.set(variableName, value);
     }
+    toString({ spacing }) {
+        return JSON.stringify(this, (key, value) => {
+            if (value instanceof Map) {
+                return [...value];
+            }
+            else {
+                return value;
+            }
+        }, spacing);
+    }
 }
 exports.Score = Score;

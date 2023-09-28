@@ -9,5 +9,5 @@ export default class SizeUp {
      * @param configFile Path to a configuration file containing options for how to evaluate the pull
      *   request.
      */
-    static evaluate(diff: string, configFile?: string): Promise<Score>;
+    static evaluate(diff: string, configFile?: string): Score;
 }
