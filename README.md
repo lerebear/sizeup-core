@@ -21,11 +21,11 @@ const {data} = await octokit.rest.pulls.get({
   pull_number: 1,
   mediaType: {format: 'diff'}, // Require diff format directly, then cast to result to string
 }) as unknown as string
-const score = Sizeup.evaluate(diff)
+const score = SizeUp.evaluate(diff)
 console.log(score.toString({ spacing: 2}))
 ```
 
-That will output a serialized `Score`:
+The final log statement in that snippet will output a serialized `Score`:
 
 ```jsonc
 {
