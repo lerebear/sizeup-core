@@ -10,7 +10,7 @@ For now, `sizeup` must be installed directly from GitHub:
 npm install https://github.com/lerebear/sizeup.git
 ```
 
-## Basic usage
+## Usage
 
 Load a diff from GitHub pull request, then pass it to `SizeUp.evaluate` like so:
 
