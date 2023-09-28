@@ -13,16 +13,26 @@ export default class Changeset {
 
   /**
    * @param diff code changes in the .diff format
-   * @param ignored a list of glob expressions describing files to ignore
-   * @param tests a list of glob expressions describing files that should be considered as tests
+   * @param ignoredFilePatterns a list of glob expressions matching files to ignore
+   * @param testFilePatterns a list of glob expressions matching files that should be considered as
+   *   tests
    */
-  constructor(diff: string, ignored?: string[], tests?: string[]) {
+  constructor(
+    {
+      diff,
+      ignoredFilePatterns,
+      testFilePatterns
+    }: {
+      diff: string,
+      ignoredFilePatterns?: string[],
+      testFilePatterns?: string[]
+    }) {
     this.files = []
 
     for (const file of difflib(diff)) {
       const filename = (file.to || file.from)!
 
-      if (this.matchesGlob(filename, ignored)) {
+      if (this.matchesGlob(filename, ignoredFilePatterns)) {
         continue
       }
 
@@ -30,7 +40,7 @@ export default class Changeset {
         ...file,
         filename,
         language: Linguist.detect(filename),
-        isTestFile: this.matchesGlob(filename, tests),
+        isTestFile: this.matchesGlob(filename, testFilePatterns),
       })
     }
   }

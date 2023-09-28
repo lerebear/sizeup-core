@@ -2,8 +2,9 @@ import { expect } from "chai"
 import Changeset from "../../src/changeset"
 import Comments from "../../src/features/comments"
 
-const rubyChangeset = new Changeset(
-  `
+describe("Comments", () => {
+  const rubyChangeset = new Changeset({
+    diff: `
 diff --git a/lorem.rb b/lorem.rb
 index 70714bc..f0253cf 100644
 --- a/lorem.rb
@@ -28,10 +29,10 @@ index 70714bc..f0253cf 100644
 +Integer volutpat, ante eu porttitor suscipit # , felis erat pellentesque quam, sit amet efficitur libero magna porttitor purus.
   Nulla leo libero, volutpat fringilla neque nec, bibendum placerat ex.
 `
-)
+  })
 
-const typescriptChangeset = new Changeset(
-  `
+  const typescriptChangeset = new Changeset({
+    diff: `
 diff --git a/lorem.ts b/lorem.ts
 index 47d94f5..68f175a 100644
 --- a/lorem.ts
@@ -58,10 +59,10 @@ index 47d94f5..68f175a 100644
 +"Integer volutpat, ante eu porttitor suscipit " // , felis erat pellentesque quam, sit amet efficitur libero magna porttitor purus.
   "Nulla leo libero, volutpat fringilla neque nec, bibendum placerat ex."
 `
-)
+  })
 
-const javascriptChangeset = new Changeset(
-  `
+  const javascriptChangeset = new Changeset({
+    diff: `
 diff --git a/lorem.js b/lorem.js
 index 47d94f5..68f175a 100644
 --- a/lorem.js
@@ -88,9 +89,8 @@ index 47d94f5..68f175a 100644
 +"Integer volutpat, ante eu porttitor suscipit " // , felis erat pellentesque quam, sit amet efficitur libero magna porttitor purus.
   "Nulla leo libero, volutpat fringilla neque nec, bibendum placerat ex."
 `
-)
+  })
 
-describe("Comments", () => {
   const rubyFeature = new Comments(rubyChangeset)
   const typescriptFeature = new Comments(typescriptChangeset)
   const javascriptFeature = new Comments(javascriptChangeset)

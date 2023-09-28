@@ -8,9 +8,14 @@ export default class Changeset {
     files: File[];
     /**
      * @param diff code changes in the .diff format
-     * @param ignored a list of glob expressions describing files to ignore
-     * @param tests a list of glob expressions describing files that should be considered as tests
+     * @param ignoredFilePatterns a list of glob expressions matching files to ignore
+     * @param testFilePatterns a list of glob expressions matching files that should be considered as
+     *   tests
      */
-    constructor(diff: string, ignored?: string[], tests?: string[]);
+    constructor({ diff, ignoredFilePatterns, testFilePatterns }: {
+        diff: string;
+        ignoredFilePatterns?: string[];
+        testFilePatterns?: string[];
+    });
     private matchesGlob;
 }

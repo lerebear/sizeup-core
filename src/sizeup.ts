@@ -17,12 +17,12 @@ export default class SizeUp {
   static async evaluate(diff: string, configFile?: string): Promise<Score> {
     const config = configFile ? YAML.parse(fs.readFileSync(configFile, "utf8")) : {}
     const defaultConfig = DefaultConfiguration
-    const ignored = config.ignored || defaultConfig.ignored
-    const tests = config.tests || defaultConfig.tests
+    const ignoredFilePatterns = config.ignored || defaultConfig.ignored
+    const testFilePatterns = config.tests || defaultConfig.tests
     const expression = config.scoring?.formula || defaultConfig.scoring!.formula
     const categories = config.categories || defaultConfig.categories
 
-    const changeset = new Changeset(diff, ignored, tests)
+    const changeset = new Changeset({ diff, ignoredFilePatterns, testFilePatterns })
     const formula = new Formula(expression)
 
     return formula.evaluate(changeset, categories)

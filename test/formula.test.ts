@@ -2,8 +2,9 @@ import { expect } from "chai"
 import Changeset from "../src/changeset"
 import { Formula } from "../src/formula"
 
-const changeset = new Changeset(
-  `
+describe("Formula", () => {
+  const changeset = new Changeset({
+    diff: `
 diff --git a/lorem.ts b/lorem.ts
 index 47d94f5..68f175a 100644
 --- a/lorem.ts
@@ -29,10 +30,9 @@ index 47d94f5..68f175a 100644
 -"Integer volutpat, ante eu porttitor suscipit, felis erat pellentesque quam, sit amet efficitur libero magna porttitor purus."
 +"Integer volutpat, ante eu porttitor suscipit " // , felis erat pellentesque quam, sit amet efficitur libero magna porttitor purus.
   "Nulla leo libero, volutpat fringilla neque nec, bibendum placerat ex."
-`
-)
+`,
+  })
 
-describe("Formula", () => {
   describe("#evaluate", () => {
     it("should return the correct result for a simple formula", () => {
       const formula = new Formula("- additions deletions")

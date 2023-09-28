@@ -2,8 +2,9 @@ import { expect } from "chai"
 import Changeset from "../../src/changeset"
 import Whitespace from "../../src/features/whitespace"
 
-const changeset = new Changeset(
-  `
+describe("Whitespace", () => {
+  const changeset = new Changeset({
+    diff: `
 diff --git a/README.md b/README.md
 index 8aa27aa..fc65469 100644
 --- a/README.md
@@ -19,9 +20,8 @@ index 8aa27aa..fc65469 100644
 +now
 +
 `
-)
+  })
 
-describe("Whitespace", () => {
   const feature = new Whitespace(changeset)
 
   describe(".variableName", () => {

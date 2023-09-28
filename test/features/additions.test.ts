@@ -2,8 +2,9 @@ import { expect } from "chai"
 import Changeset from "../../src/changeset"
 import Additions from "../../src/features/additions"
 
-const changeset = new Changeset(
-  `
+describe("Additions", () => {
+  const changeset = new Changeset({
+    diff: `
 diff --git a/package.json b/package.json
 index c40f464..f548cfa 100644
 --- a/package.json
@@ -19,9 +20,8 @@ index c40f464..f548cfa 100644
   "devDependencies": {
     "@oclif/test": "^2.5.3",
 `,
-)
+  })
 
-describe("Additions", () => {
   const feature = new Additions(changeset)
 
   describe(".variableName", () => {

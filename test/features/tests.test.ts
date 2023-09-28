@@ -2,8 +2,9 @@ import { expect } from "chai"
 import Changeset from "../../src/changeset"
 import Tests from "../../src/features/tests"
 
-const changeset = new Changeset(
-  `
+describe("Tests", () => {
+  const changeset = new Changeset({
+    diff: `
 diff --git a/lorem.test.ts b/lorem.test.ts
 index 47d94f5..629dacb 100644
 --- a/lorem.test.ts
@@ -35,11 +36,9 @@ index 47d94f5..bbd3a31 100644
   "Integer volutpat, ante eu porttitor suscipit, felis erat pellentesque quam, sit amet efficitur libero magna porttitor purus."
   "Nulla leo libero, volutpat fringilla neque nec, bibendum placerat ex."  
 `,
-undefined,
-["*.test.ts"]
-)
+    testFilePatterns: ["*.test.ts"]
+  })
 
-describe("Tests", () => {
   const feature = new Tests(changeset)
 
   describe(".variableName", () => {
