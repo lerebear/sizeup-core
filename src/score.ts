@@ -69,10 +69,10 @@ export class Score {
     this.variableSubstitutions.set(variableName, value)
   }
 
-  toString({ spacing }: { spacing?: string | number }): string {
+  toString({ spacing }: { spacing?: string | number } = { spacing: 2}): string {
     return JSON.stringify(
       this,
-      (key, value) => {
+      (_key, value) => {
         if(value instanceof Map) {
           return [...value]
         } else {
