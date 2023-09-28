@@ -20,9 +20,10 @@ class SizeUp {
         const config = configFile ? YAML.parse(fs.readFileSync(configFile, "utf8")) : {};
         const defaultConfig = default_1.DefaultConfiguration;
         const ignored = config.ignored || defaultConfig.ignored;
+        const tests = config.tests || defaultConfig.tests;
         const expression = ((_a = config.scoring) === null || _a === void 0 ? void 0 : _a.formula) || defaultConfig.scoring.formula;
         const categories = config.categories || defaultConfig.categories;
-        const changeset = new changeset_1.default(diff, ignored);
+        const changeset = new changeset_1.default(diff, ignored, tests);
         const formula = new formula_1.Formula(expression);
         return formula.evaluate(changeset, categories);
     }

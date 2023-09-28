@@ -26,9 +26,18 @@ exports.DefaultConfiguration = {
     ignored: [
         "*.rbi",
         "CODEOWNERS",
-        "SERVICEOWNERS"
+        "SERVICEOWNERS",
+    ],
+    tests: [
+        "*_test.rb",
+        "*-test.js",
+        "*-test.jsx",
+        "*-test.ts",
+        "*-test.tsx",
+        "test/*.yml",
+        "test/*.yaml",
     ],
     scoring: {
-        formula: "- - + added-lines removed-lines comment-lines whitespace-lines"
-    }
+        formula: "- - + added-lines removed-lines comment-lines whitespace-lines",
+    },
 };

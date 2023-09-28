@@ -36,10 +36,6 @@ export interface Configuration {
             [k: string]: unknown;
         }[]
     ];
-    /**
-     * glob expressions defining file patterns that are ignored in the scoring process
-     */
-    ignored?: string[];
     scoring?: {
         /**
          * shorthand for a specific scoring formula
@@ -53,5 +49,13 @@ export interface Configuration {
         formula: string;
         [k: string]: unknown;
     };
+    /**
+     * glob expressions defining file patterns that should be considered as tests during the scoring process
+     */
+    tests?: string[];
+    /**
+     * glob expressions defining file patterns that are ignored in the scoring process
+     */
+    ignored?: string[];
     [k: string]: unknown;
 }

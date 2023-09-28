@@ -12,22 +12,30 @@ class Changeset {
     /**
      * @param diff code changes in the .diff format
      * @param ignored a list of glob expressions describing files to ignore
+     * @param tests a list of glob expressions describing files that should be considered as tests
      */
-    constructor(diff, ignored = []) {
+    constructor(diff, ignored, tests) {
         this.files = [];
         for (const file of difflib(diff)) {
             const filename = (file.to || file.from);
-            for (const glob of ignored) {
-                if ((0, minimatch_1.minimatch)(filename, glob)) {
-                    continue;
-                }
+            if (this.matchesGlob(filename, ignored)) {
+                continue;
             }
             this.files.push({
                 ...file,
                 filename,
-                language: linguist_1.Linguist.detect(filename)
+                language: linguist_1.Linguist.detect(filename),
+                isTestFile: this.matchesGlob(filename, tests),
             });
         }
+    }
+    matchesGlob(filename, globs) {
+        for (const glob of (globs || [])) {
+            if ((0, minimatch_1.minimatch)(filename, glob)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
 exports.default = Changeset;

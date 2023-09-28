@@ -26,13 +26,6 @@
                 ]
             }
         },
-        "ignored": {
-            "description": "glob expressions defining file patterns that are ignored in the scoring process",
-            "type": "array",
-            "items": {
-                "type": "string"
-            }
-        },
         "scoring": {
             "oneOf": [
                 {
@@ -63,6 +56,20 @@
                     ]
                 }
             ]
+        },
+        "tests": {
+            "description": "glob expressions defining file patterns that should be considered as tests during the scoring process",
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        },
+        "ignored": {
+            "description": "glob expressions defining file patterns that are ignored in the scoring process",
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
         }
     }
 }

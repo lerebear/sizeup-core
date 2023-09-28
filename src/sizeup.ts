@@ -18,10 +18,11 @@ export default class SizeUp {
     const config = configFile ? YAML.parse(fs.readFileSync(configFile, "utf8")) : {}
     const defaultConfig = DefaultConfiguration
     const ignored = config.ignored || defaultConfig.ignored
+    const tests = config.tests || defaultConfig.tests
     const expression = config.scoring?.formula || defaultConfig.scoring!.formula
     const categories = config.categories || defaultConfig.categories
 
-    const changeset = new Changeset(diff, ignored)
+    const changeset = new Changeset(diff, ignored, tests)
     const formula = new Formula(expression)
 
     return formula.evaluate(changeset, categories)
