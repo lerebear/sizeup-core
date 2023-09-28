@@ -7,7 +7,7 @@ SizeUp is a library for estimating how easy a pull request will be to review.
 For now, `sizeup` must be installed directly from GitHub:
 
 ```
-npm install git+https://github.com/lerebear/sizeup.git
+npm install https://github.com/lerebear/sizeup.git
 ```
 
 ## Basic usage
