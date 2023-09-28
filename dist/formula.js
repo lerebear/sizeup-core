@@ -1,101 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Formula = exports.Score = void 0;
+exports.Formula = void 0;
+const operators_1 = require("./operators");
 const registry_1 = require("./registry");
+const score_1 = require("./score");
 const NUMERIC_CONSTANT_RE = /-?\d+(\.\d+)?/;
-const SUPPORTED_OPERATORS = [
-    {
-        symbol: "+",
-        arity: 2,
-        apply: (...operands) => operands[0] + operands[1]
-    },
-    {
-        symbol: "-",
-        arity: 2,
-        apply: (...operands) => operands[0] - operands[1]
-    },
-    {
-        symbol: "*",
-        arity: 2,
-        apply: (...operands) => operands[0] * operands[1]
-    },
-    {
-        symbol: "/",
-        arity: 2,
-        apply: (...operands) => operands[0] / operands[1]
-    },
-];
-/** Reports the result of evaluating a Changeset for reviewability. */
-class Score {
-    constructor(formula) {
-        this.formula = formula;
-        this.variableSubstitutions = new Map();
-    }
-    /**
-     * Records the error that we encountered when evaluating the formula.
-     *
-     * @param error
-     */
-    addError(error) {
-        this.error = error;
-        this.value = undefined;
-        this.category = undefined;
-    }
-    /**
-     * Records the result of evaluating the formula.
-     *
-     * @param value Score that we computed
-     * @param categories The full set of possible categories to assign. This should have at least one
-     *   entry, and should also have at least one catchall entry (an entry without an `lt` value).
-     */
-    addValue(value, categories) {
-        this.error = undefined;
-        this.value = value;
-        this.category = Score.categorize(value, categories);
-    }
-    /**
-     * Records that we used a particular value for a variable during evaluation.
-     *
-     * @param variableName The name of the variable we substituted
-     * @param value The value we used for the variable
-     */
-    recordVariableSubstitution(variableName, value) {
-        this.variableSubstitutions.set(variableName, value);
-    }
-    /**
-     *
-     * @param score The numeric value that we should categorize
-     * @param categories The set of all categories to choose from
-     * @returns The name of the chosen category, or undefined if we couldn't find an appropriate one
-     */
-    static categorize(score, categories) {
-        var _a;
-        if (!categories) {
-            return;
-        }
-        const sortedCategories = categories.sort((a, b) => {
-            if (a.lt && b.lt) {
-                return a.lt - b.lt;
-            }
-            else if (a.lt) {
-                return -1;
-            }
-            else if (b.lt) {
-                return 1;
-            }
-            else {
-                return 0;
-            }
-        });
-        for (const category of sortedCategories) {
-            if (category.lt && score < category.lt) {
-                return category.name;
-            }
-        }
-        return (_a = sortedCategories[sortedCategories.length - 1]) === null || _a === void 0 ? void 0 : _a.name;
-    }
-}
-exports.Score = Score;
 /** Represents a mathematical expression that we use to evaluate a Changeset. */
 class Formula {
     constructor(expression) {
@@ -108,7 +17,7 @@ class Formula {
      * @returns The compute score of the Changeset according to this formula
      */
     evaluate(changeset, categories) {
-        const result = new Score(this.expression);
+        const result = new score_1.Score(this.expression);
         const stack = [];
         for (const { token, index } of this.expression.split(/\s+/).map((token, index) => ({ token, index }))) {
             if (!this.isSupportedToken(token)) {
@@ -136,7 +45,7 @@ class Formula {
         return !!this.toOperator(token);
     }
     toOperator(token) {
-        for (const op of SUPPORTED_OPERATORS) {
+        for (const op of operators_1.SUPPORTED_OPERATORS) {
             if (op.symbol == token) {
                 return op;
             }

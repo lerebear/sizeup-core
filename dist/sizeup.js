@@ -5,6 +5,7 @@ const formula_1 = require("./formula");
 const YAML = require("yaml");
 const fs = require("fs");
 const default_1 = require("./config/default");
+const category_configuration_1 = require("./category-configuration");
 class SizeUp {
     /**
      * Evaluates a diff for reviewability.
@@ -18,13 +19,11 @@ class SizeUp {
     static async evaluate(diff, configFile) {
         var _a;
         const config = configFile ? YAML.parse(fs.readFileSync(configFile, "utf8")) : {};
-        const defaultConfig = default_1.DefaultConfiguration;
-        const ignoredFilePatterns = config.ignored || defaultConfig.ignored;
-        const testFilePatterns = config.tests || defaultConfig.tests;
-        const expression = ((_a = config.scoring) === null || _a === void 0 ? void 0 : _a.formula) || defaultConfig.scoring.formula;
-        const categories = config.categories || defaultConfig.categories;
+        const ignoredFilePatterns = config.ignored || default_1.DefaultConfiguration.ignored;
+        const testFilePatterns = config.tests || default_1.DefaultConfiguration.tests;
         const changeset = new changeset_1.default({ diff, ignoredFilePatterns, testFilePatterns });
-        const formula = new formula_1.Formula(expression);
+        const categories = new category_configuration_1.CategoryConfiguration(config.categories || default_1.DefaultConfiguration.categories);
+        const formula = new formula_1.Formula(((_a = config.scoring) === null || _a === void 0 ? void 0 : _a.formula) || default_1.DefaultConfiguration.scoring.formula);
         return formula.evaluate(changeset, categories);
     }
 }

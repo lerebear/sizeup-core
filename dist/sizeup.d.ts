@@ -1,4 +1,4 @@
-import { Score } from "./formula";
+import { Score } from "./score";
 export default class SizeUp {
     /**
      * Evaluates a diff for reviewability.

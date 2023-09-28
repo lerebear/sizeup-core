@@ -1,8 +1,10 @@
 import Changeset from "./changeset";
-import { Formula, Score } from "./formula"
+import { Formula } from "./formula"
 import * as YAML from "yaml"
 import * as fs from "fs"
 import { DefaultConfiguration } from "./config/default";
+import { CategoryConfiguration } from "./category-configuration";
+import { Score } from "./score";
 
 export default class SizeUp {
   /**
@@ -16,14 +18,13 @@ export default class SizeUp {
    */
   static async evaluate(diff: string, configFile?: string): Promise<Score> {
     const config = configFile ? YAML.parse(fs.readFileSync(configFile, "utf8")) : {}
-    const defaultConfig = DefaultConfiguration
-    const ignoredFilePatterns = config.ignored || defaultConfig.ignored
-    const testFilePatterns = config.tests || defaultConfig.tests
-    const expression = config.scoring?.formula || defaultConfig.scoring!.formula
-    const categories = config.categories || defaultConfig.categories
 
+    const ignoredFilePatterns = config.ignored || DefaultConfiguration.ignored
+    const testFilePatterns = config.tests || DefaultConfiguration.tests
     const changeset = new Changeset({ diff, ignoredFilePatterns, testFilePatterns })
-    const formula = new Formula(expression)
+
+    const categories = new CategoryConfiguration(config.categories || DefaultConfiguration.categories)
+    const formula = new Formula(config.scoring?.formula || DefaultConfiguration.scoring!.formula)
 
     return formula.evaluate(changeset, categories)
   }
