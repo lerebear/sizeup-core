@@ -20,7 +20,8 @@ const {data} = await octokit.rest.pulls.get({
   "sizeup",
   pull_number: 1,
 
-  // Octokit doesn't provide the correct result type when we use the `mediaType` option, so although this works we must cast the result to string
+  // Octokit doesn't provide the correct result type when we use the `mediaType` option,
+  // so although this works we must cast the result to string
   mediaType: {format: 'diff'},
 }) as unknown as string
 const score = SizeUp.evaluate(diff)
