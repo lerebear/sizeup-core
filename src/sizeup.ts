@@ -11,10 +11,8 @@ export default class SizeUp {
    * Evaluates a diff for reviewability.
    *
    * @param diff A .diff formatted string containing the code to evaluate
-   * @param client Authenticated Octokit client that we should use to communicate with the GitHub
-   *   API. This must be provided if a URL is passed via the `diff_or_url` parameter.
-   * @param configFile Path to a configuration file containing options for how to evaluate the pull
-   *   request.
+   * @param configFile Path to a YAML configuration file containing options for how to evaluate the
+   *   pull request. The YAML file should conform to the JSON schema in src/config/schema.json.
    */
   static evaluate(diff: string, configFile?: string): Score {
     const config = configFile ? YAML.parse(fs.readFileSync(configFile, "utf8")) : {}
