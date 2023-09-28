@@ -15,15 +15,22 @@ npm install https://github.com/lerebear/sizeup.git
 Load a diff from GitHub pull request, then pass it to `SizeUp.evaluate` like so:
 
 ```ts
-const {data} = await octokit.rest.pulls.get({
-  "lerebear",
-  "sizeup",
-  pull_number: 1,
+const diff = (
+  await octokit
+    .rest
+    .pulls
+    .get({
+    "lerebear",
+    "sizeup",
+    pull_number: 1,
 
-  // Octokit doesn't provide the correct result type when we use the `mediaType` option,
-  // so although this works we must cast the result to string
-  mediaType: {format: 'diff'},
-}) as unknown as string
+    // This is the easiest way to request a diff directly, but since Octokit
+    // doesn't provide the correct result type when we use the `mediaType`
+    // option, we must cast the result to a string later on
+    mediaType: {format: 'diff'},
+  })
+).data as unknown as string
+
 const score = SizeUp.evaluate(diff)
 console.log(score.toString({ spacing: 2}))
 ```
