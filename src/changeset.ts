@@ -13,9 +13,9 @@ export default class Changeset {
 
   /**
    * @param diff code changes in the .diff format
-   * @param ignoredFilePatterns a list of glob expressions matching files to ignore
+   * @param ignoredFilePatterns a list of glob expressions matching files to ignore during scoring
    * @param testFilePatterns a list of glob expressions matching files that should be considered as
-   *   tests
+   *   tests during scoring
    */
   constructor(
     {

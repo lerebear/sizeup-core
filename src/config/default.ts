@@ -22,12 +22,12 @@ export const DefaultConfiguration: Configuration = {
       name: "xl",
     },
   ],
-  ignored: [
+  ignoredFilePatterns: [
     "*.rbi",
     "CODEOWNERS",
     "SERVICEOWNERS",
   ],
-  tests: [
+  testFilePatterns: [
     "*_test.rb",
     "*-test.js",
     "*-test.jsx",

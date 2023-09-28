@@ -54,12 +54,12 @@ export interface Configuration {
         [k: string]: unknown;
       };
   /**
-   * glob expressions defining file patterns that should be considered as tests during the scoring process
+   * glob expressions matching file patterns that should be considered as tests during the scoring process
    */
-  tests?: string[];
+  testFilePatterns?: string[];
   /**
-   * glob expressions defining file patterns that are ignored in the scoring process
+   * glob expressions matching file patterns that are ignored in the scoring process
    */
-  ignored?: string[];
+  ignoredFilePatterns?: string[];
   [k: string]: unknown;
 }

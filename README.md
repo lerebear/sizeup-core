@@ -95,10 +95,10 @@ categories:
   - name: l
     lt: 500
   - name: xl
-ignored:
+ignoredFilePatterns:
   - CODEOWNERS
   - SERVICEOWNERS
-tests:
+testFilePatterns:
   - "*_test.rb"
 scoring:
   formula: "- - + additions deletions comments whitespace"

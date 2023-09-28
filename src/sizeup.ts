@@ -17,8 +17,8 @@ export default class SizeUp {
   static evaluate(diff: string, configFile?: string): Score {
     const config = configFile ? YAML.parse(fs.readFileSync(configFile, "utf8")) : {}
 
-    const ignoredFilePatterns = config.ignored || DefaultConfiguration.ignored
-    const testFilePatterns = config.tests || DefaultConfiguration.tests
+    const ignoredFilePatterns = config.ignoredFilePatterns || DefaultConfiguration.ignoredFilePatterns
+    const testFilePatterns = config.testFilePatterns || DefaultConfiguration.testFilePatterns
     const changeset = new Changeset({ diff, ignoredFilePatterns, testFilePatterns })
 
     const categories = new CategoryConfiguration(config.categories || DefaultConfiguration.categories)

@@ -57,15 +57,15 @@
                 }
             ]
         },
-        "tests": {
-            "description": "glob expressions defining file patterns that should be considered as tests during the scoring process",
+        "testFilePatterns": {
+            "description": "glob expressions matching file patterns that should be considered as tests during the scoring process",
             "type": "array",
             "items": {
                 "type": "string"
             }
         },
-        "ignored": {
-            "description": "glob expressions defining file patterns that are ignored in the scoring process",
+        "ignoredFilePatterns": {
+            "description": "glob expressions matching file patterns that are ignored in the scoring process",
             "type": "array",
             "items": {
                 "type": "string"
