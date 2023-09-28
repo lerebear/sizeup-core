@@ -35,7 +35,7 @@ index 47d94f5..68f175a 100644
 describe("Formula", () => {
   describe("#evaluate", () => {
     it("should return the correct result for a simple formula", () => {
-      const formula = new Formula("- added-lines removed-lines")
+      const formula = new Formula("- additions deletions")
       const result = formula.evaluate(changeset)
 
       expect(result.error, result.error?.message).to.be.undefined
@@ -43,7 +43,7 @@ describe("Formula", () => {
     })
 
     it("should return the correct result for the default formula", () => {
-      const formula = new Formula("- - + added-lines removed-lines comment-lines whitespace-lines")
+      const formula = new Formula("- - + additions deletions comments whitespace")
       const result = formula.evaluate(changeset)
 
       expect(result.error, result.error?.message).to.be.undefined

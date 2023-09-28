@@ -1,6 +1,6 @@
 import { expect } from "chai"
 import Changeset from "../../src/changeset"
-import AddedLines from "../../src/features/added-lines"
+import Deletions from "../../src/features/deletions"
 
 const changeset = new Changeset(
   `
@@ -21,18 +21,18 @@ index c40f464..f548cfa 100644
 `,
 )
 
-describe("AddedLines", () => {
-  const feature = new AddedLines(changeset)
+describe("Deletions", () => {
+  const feature = new Deletions(changeset)
 
   describe(".variableName", () => {
     it("should return the kebab-cased named of the class", () => {
-      expect(AddedLines.variableName()).to.equal("added-lines")
+      expect(Deletions.variableName()).to.equal("deletions")
     })
   })
 
   describe("#evaluate", () => {
     it("should sum the number of lines added across all files in the changeset", () => {
-      expect(feature.evaluate()).to.equal(2)
+      expect(feature.evaluate()).to.equal(1)
     })
   })
 })

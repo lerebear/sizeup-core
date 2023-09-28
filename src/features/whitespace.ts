@@ -1,7 +1,7 @@
 import Feature from '../feature'
 import { FeatureRegistry } from '../registry'
 
-export default class WhitespaceLines extends Feature {
+export default class Whitespace extends Feature {
   evaluate(): number {
     return this.changeset.files.reduce((sum, file) => {
       for (const chunk of file.chunks) {
@@ -23,4 +23,4 @@ export default class WhitespaceLines extends Feature {
   }
 }
 
-FeatureRegistry.set(WhitespaceLines.variableName(), WhitespaceLines)
+FeatureRegistry.set(Whitespace.variableName(), Whitespace)

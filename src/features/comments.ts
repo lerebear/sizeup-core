@@ -2,7 +2,7 @@ import Feature from '../feature'
 import File from '../file'
 import { FeatureRegistry } from '../registry'
 
-export default class CommentLines extends Feature {
+export default class Comments extends Feature {
   evaluate(): number {
     return this.changeset.files.reduce((sum, file) => sum + this.countCommentLines(file), 0)
   }
@@ -51,4 +51,4 @@ export default class CommentLines extends Feature {
   }
 }
 
-FeatureRegistry.set(CommentLines.variableName(), CommentLines)
+FeatureRegistry.set(Comments.variableName(), Comments)

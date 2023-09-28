@@ -1,6 +1,6 @@
 import { expect } from "chai"
 import Changeset from "../../src/changeset"
-import TestLines from "../../src/features/test-lines"
+import Tests from "../../src/features/tests"
 
 const changeset = new Changeset(
   `
@@ -39,12 +39,12 @@ undefined,
 ["*.test.ts"]
 )
 
-describe("TestLines", () => {
-  const feature = new TestLines(changeset)
+describe("Tests", () => {
+  const feature = new Tests(changeset)
 
   describe(".variableName", () => {
     it("should return the kebab-cased named of the class", () => {
-      expect(TestLines.variableName()).to.equal("test-lines")
+      expect(Tests.variableName()).to.equal("tests")
     })
   })
 

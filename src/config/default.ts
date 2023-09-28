@@ -37,6 +37,6 @@ export const DefaultConfiguration: Configuration = {
     "test/*.yaml",
   ],
   scoring: {
-    formula: "- - + added-lines removed-lines comment-lines whitespace-lines",
+    formula: "- - + additions deletions comments whitespace",
   },
 }

@@ -1,6 +1,6 @@
 import { expect } from "chai"
 import Changeset from "../../src/changeset"
-import CommentLines from "../../src/features/comment-lines"
+import Comments from "../../src/features/comments"
 
 const rubyChangeset = new Changeset(
   `
@@ -90,14 +90,14 @@ index 47d94f5..68f175a 100644
 `
 )
 
-describe("CommentLines", () => {
-  const rubyFeature = new CommentLines(rubyChangeset)
-  const typescriptFeature = new CommentLines(typescriptChangeset)
-  const javascriptFeature = new CommentLines(javascriptChangeset)
+describe("Comments", () => {
+  const rubyFeature = new Comments(rubyChangeset)
+  const typescriptFeature = new Comments(typescriptChangeset)
+  const javascriptFeature = new Comments(javascriptChangeset)
 
   describe(".variableName", () => {
     it("should return the kebab-cased named of the class", () => {
-      expect(CommentLines.variableName()).to.equal("comment-lines")
+      expect(Comments.variableName()).to.equal("comments")
     })
   })
 

@@ -1,6 +1,6 @@
 import { expect } from "chai"
 import Changeset from "../../src/changeset"
-import WhitespaceLines from "../../src/features/whitespace-lines"
+import Whitespace from "../../src/features/whitespace"
 
 const changeset = new Changeset(
   `
@@ -21,12 +21,12 @@ index 8aa27aa..fc65469 100644
 `
 )
 
-describe("WhitespaceLines", () => {
-  const feature = new WhitespaceLines(changeset)
+describe("Whitespace", () => {
+  const feature = new Whitespace(changeset)
 
   describe(".variableName", () => {
     it("should return the kebab-cased named of the class", () => {
-      expect(WhitespaceLines.variableName()).to.equal("whitespace-lines")
+      expect(Whitespace.variableName()).to.equal("whitespace")
     })
   })
 
