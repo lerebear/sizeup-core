@@ -10,15 +10,6 @@ describe("Formula", () => {
   const categories = new CategoryConfiguration(DefaultConfiguration.categories!)
 
   describe("#evaluate", () => {
-    it("should return the correct result for a simple formula", () => {
-      const formula = new Formula("- additions deletions")
-      const result = formula.evaluate(changeset, categories)
-
-      expect(result.error, result.error?.message).to.be.undefined
-      expect(result.value).to.equal(8)
-      expect(result.category).to.equal("xs")
-    })
-
     it("should return the correct result for the default formula", () => {
       const formula = new Formula("- - + additions deletions comments whitespace")
       const result = formula.evaluate(changeset, categories)
@@ -26,6 +17,17 @@ describe("Formula", () => {
       expect(result.error, result.error?.message).to.be.undefined
       expect(result.value).to.equal(7)
       expect(result.category).to.equal("xs")
+    })
+
+    it("should complain if the formula contains an unsupported token", () => {
+      const formula = new Formula("+ additions an-unimplemented-feature")
+      const result = formula.evaluate(changeset, categories)
+
+      expect(result.error?.message).to.satisfy(
+        (msg: string) => msg.startsWith("Formula contains unsupported token: an-unimplemented-feature")
+      )
+      expect(result.value).to.be.undefined
+      expect(result.category).to.be.undefined
     })
   })
 })

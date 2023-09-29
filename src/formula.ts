@@ -27,7 +27,14 @@ export class Formula {
 
     for (const { token, index } of this.expression.split(/\s+/).map((token, index) => ({token, index}))) {
       if (!this.isSupportedToken(token)) {
-        result.addError({ message: `Formula contains unsupported token: ${token}`, tokenIndex: index })
+        result.addError({
+          message: (
+            `Formula contains unsupported token: ${token}.\n` +
+            "A valid token is either a numeric literal or one of the following: " +
+            `${this.validTokens().join(", ")}`
+          ),
+          tokenIndex: index
+        })
         return result
       }
 
@@ -75,6 +82,10 @@ export class Formula {
 
   private isNumericConstant(token: string): boolean {
     return !!token.match(NUMERIC_CONSTANT_RE)
+  }
+
+  private validTokens(): string[] {
+    return SUPPORTED_OPERATORS.map((op) => op.symbol).concat(Array.from(FeatureRegistry.keys()))
   }
 
   private applyOperator(result: Score, stack: string[], changeset: Changeset): void {
