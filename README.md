@@ -39,7 +39,7 @@ The final log statement in that snippet will output a serialized `Score`:
 
 ```jsonc
 {
-  // The mathematical expression used to score the diff
+  // The expression (written in prefix notation) used to score the diff
   "formula": "- - + additions deletions comments whitespace",
 
   // The values that were substituted for each variable in the formula
