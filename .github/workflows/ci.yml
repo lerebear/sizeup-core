@@ -1,0 +1,32 @@
+name: Continuous Integration
+
+on:
+  pull_request:
+  push:
+    branches:
+      - '*'
+
+jobs:
+  test:
+    name: Run unit tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        id: checkout
+        uses: actions/checkout@v4
+
+      - name: Setup node.js
+        id: setup-node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        id: npm-ci
+        run: npm ci
+
+      - name: Run tests
+        id: npm-test
+        run: npm run test
