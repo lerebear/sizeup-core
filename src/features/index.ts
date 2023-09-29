@@ -1,0 +1,6 @@
+export { default as Additions } from "./additions"
+export { default as Comments } from "./comments"
+export { default as Deletions } from "./deletions"
+export { default as SingleWords } from "./single-words"
+export { default as Tests } from "./tests"
+export { default as Whitespace } from "./whitespace"
