@@ -1,5 +1,4 @@
 import Feature from '../feature'
-import { FeatureRegistry } from '../registry'
 
 export default class SingleWords extends Feature {
   evaluate(): number {
@@ -21,5 +20,3 @@ export default class SingleWords extends Feature {
     }, 0)
   }
 }
-
-FeatureRegistry.set(SingleWords.variableName(), SingleWords)

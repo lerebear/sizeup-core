@@ -1,6 +1,5 @@
 import Feature from '../feature'
 import File from '../file'
-import { FeatureRegistry } from '../registry'
 
 export default class Comments extends Feature {
   evaluate(): number {
@@ -50,5 +49,3 @@ export default class Comments extends Feature {
     return sum
   }
 }
-
-FeatureRegistry.set(Comments.variableName(), Comments)
