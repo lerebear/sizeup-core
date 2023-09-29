@@ -11,11 +11,13 @@ import Whitespace from "./features/whitespace"
 type FeatureClass = new (changeset: Changeset) => Feature
 
 /** The collection of features that are available for use in an evaluation formula. */
-export const FeatureRegistry: Map<string, FeatureClass> = new Map()
-
-FeatureRegistry.set(Additions.variableName(), Additions)
-FeatureRegistry.set(Comments.variableName(), Comments)
-FeatureRegistry.set(Deletions.variableName(), Deletions)
-FeatureRegistry.set(SingleWords.variableName(), SingleWords)
-FeatureRegistry.set(Tests.variableName(), Tests)
-FeatureRegistry.set(Whitespace.variableName(), Whitespace)
+export const FeatureRegistry: Map<string, FeatureClass> = new Map(
+  [
+    [Additions.variableName(), Additions],
+    [Comments.variableName(), Comments],
+    [Deletions.variableName(), Deletions],
+    [SingleWords.variableName(), SingleWords],
+    [Tests.variableName(), Tests],
+    [Whitespace.variableName(), Whitespace],
+  ]
+)
