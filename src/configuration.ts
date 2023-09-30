@@ -17,24 +17,60 @@ export interface Configuration {
   categories?: [
     {
       /**
-       * name of the category
+       * human-friendly name of the category
        */
       name: string;
+      /**
+       * A visual label that should be used to represent this category
+       */
+      label?: {
+        /**
+         * name of the label that should be used to represent this category
+         */
+        name: string;
+        /**
+         * preferred CSS hex color label that should be used to represent this category
+         */
+        color?: string;
+        [k: string]: unknown;
+      };
       /**
        * exclusive upper bound on the score that a pull request must have to be assigned this category
        */
       lt?: number;
+      /**
+       * Whether or not this category marks the threshold at which we should warn about the diff being difficult to review
+       */
+      threshold?: boolean;
       [k: string]: unknown;
     },
     ...{
       /**
-       * name of the category
+       * human-friendly name of the category
        */
       name: string;
+      /**
+       * A visual label that should be used to represent this category
+       */
+      label?: {
+        /**
+         * name of the label that should be used to represent this category
+         */
+        name: string;
+        /**
+         * preferred CSS hex color label that should be used to represent this category
+         */
+        color?: string;
+        [k: string]: unknown;
+      };
       /**
        * exclusive upper bound on the score that a pull request must have to be assigned this category
        */
       lt?: number;
+      /**
+       * Whether or not this category marks the threshold at which we should warn about the diff being difficult to review
+       */
+      threshold?: boolean;
       [k: string]: unknown;
     }[]
   ];

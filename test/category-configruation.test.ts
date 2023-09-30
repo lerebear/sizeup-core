@@ -30,5 +30,21 @@ describe("CategoryConfiguration", () => {
         "You can only specify one category without an `lt` value, but we found at least two: large,xxl"
       )
     })
+
+    it("should error when it does not find a properly configured threshold category", () => {
+      const categories = [{ name: "smol" }]
+      expect(() => new CategoryConfiguration(categories)).to.throw(
+        Error,
+        "You must provide one category with a `threshold` value to act as the warning threshold"
+      )
+    })
+
+    it("should error when it finds more than one category configured as the threshold", () => {
+      const categories = [{ name: "smol", lt: 10, threshold: true }, { name: "large", threshold: true }]
+      expect(() => new CategoryConfiguration(categories)).to.throw(
+        Error,
+        "You can only specify one category with a `threshold` value, but we found at least two: smol,large"
+      )
+    })
   })
 })

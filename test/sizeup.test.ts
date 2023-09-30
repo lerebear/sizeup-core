@@ -9,7 +9,7 @@ describe("Sizeup", () => {
 
       expect(result.error, result.error?.message).to.be.undefined
       expect(result.value).to.equal(7)
-      expect(result.category).to.equal("xs")
+      expect(result.category!.name).to.equal("extra small")
     })
   })
 })

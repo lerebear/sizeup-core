@@ -1,42 +1,63 @@
 import { Configuration } from "../configuration";
 
 export const DefaultConfiguration: Configuration = {
-  categories: [
+  "categories": [
     {
-      name: "xs",
-      lt: 10,
+      "name": "extra small",
+      "label": {
+        "name": "xs",
+        "color": "3cbf00"
+      },
+      "lt": 10
     },
     {
-      name: "s",
-      lt: 30,
+      "name": "small",
+      "label": {
+        "name": "s",
+        "color": "5d9801"
+      },
+      "lt": 30
     },
     {
-      name: "m",
-      lt: 100,
+      "name": "medium",
+      "label": {
+        "name": "m",
+        "color": "7f7203"
+      },
+      "lt": 100
     },
     {
-      name: "l",
-      lt: 500,
+      "name": "large",
+      "label": {
+        "name": "l",
+        "color": "a14c05"
+      },
+      "lt": 500,
+      "threshold": true
     },
     {
-      name: "xl",
-    },
+      "name": "extra large",
+      "label": {
+        "name": "sl",
+        "color": "c32607"
+      }
+    }
   ],
-  ignoredFilePatterns: [
+  "ignoredFilePatterns": [
     "*.rbi",
     "CODEOWNERS",
-    "SERVICEOWNERS",
+    "SERVICEOWNERS"
   ],
-  testFilePatterns: [
+  "testFilePatterns": [
     "*_test.rb",
     "*-test.js",
     "*-test.jsx",
     "*-test.ts",
     "*-test.tsx",
     "test/*.yml",
-    "test/*.yaml",
+    "test/*.yaml"
   ],
-  scoring: {
-    formula: "- - + additions deletions comments whitespace",
-  },
+  "scoring": {
+    "formula": "- - + additions deletions comments whitespace"
+  }
 }

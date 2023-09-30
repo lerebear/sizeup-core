@@ -1,4 +1,4 @@
-import { CategoryConfiguration } from "./category-configuration"
+import { Category, CategoryConfiguration } from "./category-configuration"
 import { ParsingError } from "./parsing-error"
 
 /** Reports the result of evaluating a Changeset for reviewability. */
@@ -18,7 +18,7 @@ export class Score {
    * If this value is undefined, then either we encountered an error when evaluating the formula
    * or no applicable category was provided when the `addValue` method was called.
    */
-  category?: string
+  category?: Category
   /**
    * An error that we encountered when evaluating the formula on the changeset.
    * If this value is undefined, then no error was encountered during evaluation.
