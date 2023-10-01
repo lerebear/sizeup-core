@@ -14,81 +14,43 @@ export interface Configuration {
    *
    * @minItems 1
    */
-  categories?: [
-    {
+  categories?: {
+    /**
+     * human-friendly name of the category
+     */
+    name: string;
+    /**
+     * A visual label that should be used to represent this category
+     */
+    label?: {
       /**
-       * human-friendly name of the category
+       * name of the label that should be used to represent this category
        */
       name: string;
       /**
-       * A visual label that should be used to represent this category
+       * describes the meaning of the label that will be used to represent this category
        */
-      label?: {
-        /**
-         * name of the label that should be used to represent this category
-         */
-        name: string;
-        /**
-         * preferred CSS hex color label that should be used to represent this category
-         */
-        color?: string;
-        [k: string]: unknown;
-      };
+      description?: string;
       /**
-       * exclusive upper bound on the score that a pull request must have to be assigned this category
+       * preferred CSS hex color label that should be used to represent this category
        */
-      lt?: number;
-      /**
-       * Whether or not this category marks the threshold at which we should warn about the diff being difficult to review
-       */
-      threshold?: boolean;
-      [k: string]: unknown;
-    },
-    ...{
-      /**
-       * human-friendly name of the category
-       */
-      name: string;
-      /**
-       * A visual label that should be used to represent this category
-       */
-      label?: {
-        /**
-         * name of the label that should be used to represent this category
-         */
-        name: string;
-        /**
-         * preferred CSS hex color label that should be used to represent this category
-         */
-        color?: string;
-        [k: string]: unknown;
-      };
-      /**
-       * exclusive upper bound on the score that a pull request must have to be assigned this category
-       */
-      lt?: number;
-      /**
-       * Whether or not this category marks the threshold at which we should warn about the diff being difficult to review
-       */
-      threshold?: boolean;
-      [k: string]: unknown;
-    }[]
-  ];
-  scoring?:
-    | {
-        /**
-         * shorthand for a specific scoring formula
-         */
-        strategy: "default";
-        [k: string]: unknown;
-      }
-    | {
-        /**
-         * an expression, written in prefix-notation, that describes how to combine features to produce a score
-         */
-        formula: string;
-        [k: string]: unknown;
-      };
+      color?: string;
+    };
+    /**
+     * inclusive upper bound on the score that a pull request must have to be assigned this category
+     */
+    lte?: number;
+    /**
+     * Whether or not this category marks the threshold at which we should warn about the diff being difficult to review
+     */
+    threshold?: boolean;
+  }[];
+  scoring?: {
+    /**
+     * an expression, written in prefix-notation, that describes how to combine features to produce a score
+     */
+    formula: string;
+  };
   /**
    * glob expressions matching file patterns that should be considered as tests during the scoring process
    */
@@ -97,5 +59,4 @@ export interface Configuration {
    * glob expressions matching file patterns that are ignored in the scoring process
    */
   ignoredFilePatterns?: string[];
-  [k: string]: unknown;
 }

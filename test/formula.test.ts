@@ -1,13 +1,16 @@
+import * as YAML from "yaml"
+import * as fs from "fs"
 import { expect } from "chai"
 import Changeset from "../src/changeset"
-import { DefaultConfiguration } from "../src/config/default";
 import { Formula } from "../src/formula"
 import { loadFixture } from "./helpers/diff"
 import { CategoryConfiguration } from "../src/category-configuration"
+import { Configuration } from "../src/configuration"
 
 describe("Formula", () => {
   const changeset = new Changeset({ diff: loadFixture("formula") })
-  const categories = new CategoryConfiguration(DefaultConfiguration.categories!)
+  const defaultConfig: Configuration = YAML.parse(fs.readFileSync("./src/config/default.yaml", "utf8"))
+  const categories = new CategoryConfiguration(defaultConfig.categories!)
 
   describe("#evaluate", () => {
     it("should return the correct result for the default formula", () => {

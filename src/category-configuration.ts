@@ -1,42 +1,23 @@
-/** A category assigned to a changeset based on its computed score. */
-export interface Category {
-  /** Friendly name of the category. */
-  name: string
-  /** A visual label that should be used to represent this category. */
-  label?: {
-    /** The name of the label that should be used to represent this category. */
-    name: string,
-    /** The CSS hex color that should be used to represent this category. */
-    color?: string
-  }
-  /**
-   * Upper bound on the score that a changeset can receive in order for this category to apply.
-   * If this value is omitted, then this is assumed to represent the largest category (a catchall
-   * for every changeset to which another category does not apply).
-   */
-  lt?: number
-  /**
-   * Whether or not this category represents the threshold at which we shoudl warn diff authors
-   * that their code will be difficult to review.
-   */
-  threshold?: boolean
-}
+import { ArrayElement } from "./array-element"
+import { Configuration } from "./configuration"
+
+export type Categories = Required<Pick<Configuration, 'categories'>>["categories"]
 
 /** Validates a group of categories and provides a categorization method. */
 export class CategoryConfiguration {
-  private categories: Category[]
+  private categories: Categories
 
-  constructor(categories: Category[]) {
+  constructor(categories: Categories) {
     if (!categories.length) {
       throw new Error("You must provide at least one category")
     }
 
     const sorted = categories.sort((a, b) => {
-      if (a.lt && b.lt) {
-        return a.lt - b.lt
-      } else if (a.lt) {
+      if (a.lte && b.lte) {
+        return a.lte - b.lte
+      } else if (a.lte) {
         return -1
-      } else if (b.lt) {
+      } else if (b.lte) {
         return 1
       } else {
         return 0
@@ -44,25 +25,25 @@ export class CategoryConfiguration {
     })
 
     for (const category of sorted) {
-      if (category.lt !== undefined && category.lt < 1) {
+      if (category.lte !== undefined && category.lte < 0) {
         throw new Error(
-          `Each \`category.lt\` value must be positive, but "${category.name}" has an \`lt\` ` +
-          `value of ${category.lt}`
+          `Each \`category.lte\` value must be non-negative, but "${category.name}" has an \`lte\` ` +
+          `value of ${category.lte}`
         )
       }
     }
 
-    const catchAllCategories = sorted.filter((category) => !category.lt)
+    const catchAllCategories = sorted.filter((category) => !category.lte)
 
     if (!catchAllCategories.length) {
       throw new Error(
-        "You must provide one category without an `lt` value to act as the largest category"
+        "You must provide one category without an `lte` value to act as the largest category"
       )
     }
 
     if (catchAllCategories.length > 1) {
       throw new Error(
-        "You can only specify one category without an `lt` value, but we found at least two: " +
+        "You can only specify one category without an `lte` value, but we found at least two: " +
         catchAllCategories.map((c) => c.name)
       )
     }
@@ -89,9 +70,9 @@ export class CategoryConfiguration {
    * @param score The numeric value that we should categorize
    * @returns The name of the chosen category
    */
-  categorize(score: number): Category {
+  categorize(score: number): ArrayElement<Categories> {
     for (const category of this.categories) {
-      if (category.lt && score < category.lt) {
+      if (category.lte && score < category.lte) {
         return category
       }
     }
