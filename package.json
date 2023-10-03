@@ -25,8 +25,9 @@
     "yaml": "^2.3.2"
   },
   "scripts": {
-    "build": "npx tsc",
+    "build": "npx tsc && npm run copy-assets",
     "lint": "eslint . --ext .ts --config .eslintrc",
+    "copy-assets": "mkdir -p dist/config && cp -r src/config dist",
     "postinstall": "npm run build",
     "posttest": "npm run lint",
     "test": "mocha \"test/**/*.test.ts\""

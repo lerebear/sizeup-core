@@ -2,6 +2,7 @@ import Changeset from "./changeset";
 import { Formula } from "./formula"
 import * as YAML from "yaml"
 import * as fs from "fs"
+import * as path from "path"
 import { CategoryConfiguration } from "./category-configuration";
 import { Score } from "./score";
 import { Configuration } from "./configuration";
@@ -16,7 +17,9 @@ export default class SizeUp {
    */
   static evaluate(diff: string, configFile?: string): Score {
     const config: Configuration = configFile ? YAML.parse(fs.readFileSync(configFile, "utf8")) : {}
-    const defaultConfig: Configuration = YAML.parse(fs.readFileSync("./src/config/default.yaml", "utf8"))
+    const defaultConfig: Configuration = YAML.parse(
+      fs.readFileSync(path.resolve(__dirname, "./config/default.yaml"), "utf8")
+    )
 
     const ignoredFilePatterns = config.ignoredFilePatterns || defaultConfig.ignoredFilePatterns
     const testFilePatterns = config.testFilePatterns || defaultConfig.testFilePatterns
