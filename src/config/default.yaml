@@ -22,12 +22,12 @@ categories:
     threshold: true
     label:
       name: l
-      description: Will likely be hard to review
+      description: May be hard to review
       color: a14c05
   - name: extra large
     label:
       name: xl
-      description: Will likely be very hard to review
+      description: May be very hard to review
       color: c32607
 ignoredFilePatterns:
   - CODEOWNERS
