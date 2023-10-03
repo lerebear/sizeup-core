@@ -1,0 +1,16 @@
+name: SizeUp
+
+on: pull_request
+
+jobs:
+  sizeup:
+    name: Run sizeup estimation
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Estimate pull request reviewability
+        uses: lerebear/sizeup-action@main
+        id: sizeup-action
+        with:
+          token: "${{ secrets.GITHUB_TOKEN }}"
+          configuration-file: ""
