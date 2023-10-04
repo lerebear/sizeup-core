@@ -13,7 +13,7 @@ export class Score {
    * The numeric result of formula.
    * If this value is undefined, then we encountered an error when evaluating the formula.
    */
-  value?: number
+  result?: number
   /**
    * The category that the changeset falls into based on its score.
    * If this value is undefined, then either we encountered an error when evaluating the formula
@@ -44,7 +44,7 @@ export class Score {
    */
   addError(error: ParsingError): void {
     this.error = error
-    this.value = undefined
+    this.result = undefined
     this.category = undefined
   }
 
@@ -56,7 +56,7 @@ export class Score {
    */
   addValue(value: number, categories?: CategoryConfiguration): void {
     this.error = undefined
-    this.value = value
+    this.result = value
     this.category = categories?.categorize(value)
   }
 
