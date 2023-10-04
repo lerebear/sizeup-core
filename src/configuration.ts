@@ -41,7 +41,7 @@ export interface Configuration {
      */
     lte?: number;
     /**
-     * Whether or not this category marks the threshold at which we should warn about the diff being difficult to review
+     * Whether or not this category marks the threshold above which we should warn about the diff being difficult to review
      */
     threshold?: boolean;
   }[];

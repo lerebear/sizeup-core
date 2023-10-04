@@ -5,6 +5,7 @@ export type Categories = Required<Pick<Configuration, 'categories'>>["categories
 
 /** Validates a group of categories and provides a categorization method. */
 export class CategoryConfiguration {
+  threshold: number
   private categories: Categories
 
   constructor(categories: Categories) {
@@ -63,6 +64,7 @@ export class CategoryConfiguration {
     }
 
     this.categories = sorted
+    this.threshold = thresholdCategories[0].lte!
   }
 
   /**
