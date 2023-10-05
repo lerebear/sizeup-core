@@ -117,37 +117,3 @@ scoring:
 The default configuration that is used when no configuration file is provided can be found in [`src/config/examples/default.yaml`](./src/config/examples/default.yaml).
 
 The full specification for the configuration file is provided by the JSON schema at [`src/config/schema.json`](./src/config/schema.json).
-
-## Development
-
-This section contains notes for how to develop this library.
-
-### Regenerating the Typescript interface for the configuration schema
-
-We use a [JSON schema](./src/config/schema.json) to define the configuration options that this library supports. We then use the [`json-schema-to-typescript`](https://www.npmjs.com/package/json-schema-to-typescript) package to generate the [TypeScript `Configuration` interface](./src/configuration.ts) that we use in code..
-
-[`json-schema-to-typescript`](https://www.npmjs.com/package/json-schema-to-typescript) has two notable shortcomings:
-
-- It uses outdated type definitions which are incompatible with the latest version of [`minimatch`](https://www.npmjs.com/package/minimatch) that we use in this package. This creates build errors if `json-schema-to-typescript` is  added as a dependency of this package.
-- It generates a type definition for the `categories` array this is difficult to work with (it wraps a category object in an array e.g. `[{name:}]` rather than using an array suffix e.g. `{name:}[]`).
-
-To work around those issues, we use the following workflow to regenerate the `Configuration` interface after we've made a change to the schema:
-
-1. Temporarily install `json-schema-to-typescript`:
-
-```sh
-npm install --save-dev json-schema-to-typescript
-```
-
-2. Regenerate the `Configuration` interface using this command:
-
-```sh
-npx \
-  json2ts \
-  --maxItems=-1 \
-  --additionalProperties=false \
-  src/config/schema.json \
-  src/configuration.ts
-```
-
-3. Manually modify the `Configuration.categories` key to use an array suffix.
