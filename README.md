@@ -138,3 +138,16 @@ To work around those issues, we use the following workflow to regenerate the `Co
 ```sh
 npm install --save-dev json-schema-to-typescript
 ```
+
+2. Regenerate the `Configuration` interface using this command:
+
+```sh
+npx \
+  json2ts \
+  --maxItems=-1 \
+  --additionalProperties=false \
+  src/config/schema.json \
+  src/configuration.ts
+```
+
+3. Manually modify the `Configuration.categories` key to use an array suffix.
