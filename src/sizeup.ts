@@ -12,11 +12,11 @@ export default class SizeUp {
    * Evaluates a diff for reviewability.
    *
    * @param diff A .diff formatted string containing the code to evaluate
-   * @param configFile Path to a YAML configuration file containing options for how to evaluate the
+   * @param configPath Path to a YAML configuration file containing options for how to evaluate the
    *   pull request. The YAML file should conform to the JSON schema in src/config/schema.json.
    */
-  static evaluate(diff: string, configFile?: string): Score {
-    const config: Configuration = configFile ? YAML.parse(fs.readFileSync(configFile, "utf8")) : {}
+  static evaluate(diff: string, configPath?: string): Score {
+    const config: Configuration = configPath ? YAML.parse(fs.readFileSync(configPath, "utf8")) : {}
     const defaultConfig: Configuration = YAML.parse(
       fs.readFileSync(path.resolve(__dirname, "./config/default.yaml"), "utf8")
     )
