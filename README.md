@@ -69,3 +69,72 @@ The final log statement in that snippet will output a serialized `Score`:
   "category": "xs"
 }
 ```
+
+## API
+
+The public API for this library consists of a single `SizeUp` class that has
+a single static method called `evaluate`:
+
+```ts
+class SizeUp {
+  /**
+   * Evaluates a diff for reviewability.
+   *
+   * @param diff A .diff formatted string containing the code to evaluate
+   * @param client Authenticated Octokit client that we should use to communicate with the GitHub
+   *   API. This must be provided if a URL is passed via the `diff_or_url` parameter.
+   * @param configFile Path to a configuration file containing options for how to evaluate the pull
+   *   request.
+   */
+  static evaluate(diff: string, configFile?: string): Score
+}
+```
+
+## Configuration
+
+As shown above `SizeUp.evaluate` accepts a YAML configuration file that can be used to customize the evaluation process. Here's an example:
+
+```yaml
+categories:
+  - name: xs
+    lt: 10
+  - name: s
+    lt: 30
+  - name: m
+    lt: 100
+  - name: l
+    lt: 500
+  - name: xl
+ignoredFilePatterns:
+  - CODEOWNERS
+  - SERVICEOWNERS
+testFilePatterns:
+  - "*_test.rb"
+scoring:
+  formula: "- - + additions deletions comments whitespace"
+```
+
+The default configuration that is used when no configuration file is provided can be found in [`src/config/examples/default.yaml`](./src/config/examples/default.yaml).
+
+The full specification for the configuration file is provided by the JSON schema at [`src/config/schema.json`](./src/config/schema.json).
+
+## Development
+
+This section contains notes for how to develop this library.
+
+### Regenerating the Typescript interface for the configuration schema
+
+We use a [JSON schema](./src/config/schema.json) to define the configuration options that this library supports. We then use the [`json-schema-to-typescript`](https://www.npmjs.com/package/json-schema-to-typescript) package to generate the [TypeScript `Configuration` interface](./src/configuration.ts) that we use in code..
+
+[`json-schema-to-typescript`](https://www.npmjs.com/package/json-schema-to-typescript) has two notable shortcomings:
+
+- It uses outdated type definitions which are incompatible with the latest version of [`minimatch`](https://www.npmjs.com/package/minimatch) that we use in this package. This creates build errors if `json-schema-to-typescript` is  added as a dependency of this package.
+- It generates a type definition for the `categories` array this is difficult to work with (it wraps a category object in an array e.g. `[{name:}]` rather than using an array suffix e.g. `{name:}[]`).
+
+To work around those issues, we use the following workflow to regenerate the `Configuration` interface after we've made a change to the schema:
+
+1. Temporarily install `json-schema-to-typescript`:
+
+```sh
+npm install --save-dev json-schema-to-typescript
+```
