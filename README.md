@@ -97,13 +97,14 @@ As shown above `SizeUp.evaluate` accepts a YAML configuration file that can be u
 ```yaml
 categories:
   - name: xs
-    lt: 10
+    lte: 10
   - name: s
-    lt: 30
+    lte: 30
   - name: m
-    lt: 100
+    lte: 100
+    threshold: true
   - name: l
-    lt: 500
+    lte: 500
   - name: xl
 ignoredFilePatterns:
   - CODEOWNERS
