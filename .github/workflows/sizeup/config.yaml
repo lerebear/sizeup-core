@@ -1,2 +1,3 @@
-scoring:
-  formula: "* + additions deletions 10"
+sizeup:
+  scoring:
+    formula: "* + additions deletions 10"
