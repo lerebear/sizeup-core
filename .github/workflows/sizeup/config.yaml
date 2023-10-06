@@ -2,4 +2,4 @@ applyCategoryLabels: false
 addCommentWhenScoreThresholdHasBeenExceeded: false
 sizeup:
   scoring:
-    formula: "* + additions deletions 10"
+    formula: "* + additions deletions 0.1"
