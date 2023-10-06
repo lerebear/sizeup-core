@@ -12,9 +12,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
       - name: Estimate pull request reviewability
         uses: lerebear/sizeup-action@main
         id: sizeup-action
         with:
           token: "${{ secrets.GITHUB_TOKEN }}"
-          configuration-file: ""
+          configuration-file-path: ".github/workflows/sizeup/config.yaml"
