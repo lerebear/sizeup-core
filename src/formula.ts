@@ -4,7 +4,6 @@ import Feature from "./feature"
 import { Operator, SUPPORTED_OPERATORS } from "./operators"
 import { FeatureRegistry } from "./registry"
 import { Score } from "./score"
-import { Stack } from "./stack"
 
 const NUMERIC_CONSTANT_RE = /-?\d+(\.\d+)?/
 
@@ -24,7 +23,7 @@ export class Formula {
    */
   evaluate(changeset: Changeset, categories?: CategoryConfiguration): Score  {
     const result = new Score(this.expression)
-    const stack = new Stack()
+    const stack: number[] = []
     const tokens = this.expression.split(/\s+/)
 
     while (tokens.length) {
@@ -44,21 +43,12 @@ export class Formula {
         const FeatureClass = FeatureRegistry.get(token)!
         const feature = new FeatureClass(changeset)
         const value = feature.evaluate()
-
         result.recordVariableSubstitution((FeatureClass as unknown as typeof Feature).variableName(), value)
-
         stack.push(value)
       } else if (this.isNumericConstant(token)) {
         stack.push(parseFloat(token))
-      } else if (operator && stack.size() >= operator.arity) {
-        const operands: number[] = []
-
-        let arity = operator.arity
-        while (arity) {
-          operands.push(stack.pop()!)
-          arity--
-        }
-
+      } else if (operator && stack.length >= operator.arity) {
+        const operands = stack.splice(stack.length - operator.arity, operator.arity).reverse()
         stack.push(operator.apply(...operands))
       } else if (operator) {
         result.addError({
@@ -69,14 +59,14 @@ export class Formula {
       }
     }
 
-    if (stack.size() != 1) {
+    if (stack.length != 1) {
       result.addError({ message: `Formula contains too many operands`, tokenPosition: 1 })
       return result
     }
 
     result.addValue(
       // Round to two decimal places: https://stackoverflow.com/a/11832950
-      Math.round((stack.peek()! + Number.EPSILON) * 100) / 100,
+      Math.round((stack[0]! + Number.EPSILON) * 100) / 100,
       categories
     )
 
