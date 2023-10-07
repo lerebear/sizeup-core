@@ -1,6 +1,6 @@
 # SizeUp
 
-SizeUp is a library for estimating how easy a pull request will be to review.
+SizeUp is a library for estimating how difficult a diff will be to review.
 
 ## Installation
 
@@ -12,7 +12,7 @@ npm install https://github.com/lerebear/sizeup.git
 
 ## Usage
 
-Load a diff from GitHub pull request, then pass it to `SizeUp.evaluate` like so:
+Load a diff from a GitHub pull request, then pass it to `SizeUp.evaluate` like so:
 
 ```ts
 const diff = (
