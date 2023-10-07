@@ -83,7 +83,7 @@ export class Score {
     return JSON.stringify(
       this,
       (key, value) => {
-        if (key == "category") {
+        if (key == "category" && value) {
           return { name: value.name, lte: value.lte }
         } else if(value instanceof Map) {
           return [...value]

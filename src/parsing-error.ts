@@ -2,6 +2,6 @@
 export interface ParsingError {
   /** An error message. */
   message: string
-  /** The 0-based index of the whitespace-separated token where we encountered the error. */
-  tokenIndex: number
+  /** The 1-based index of the whitespace-separated token where we encountered the error. */
+  tokenPosition: number
 }
