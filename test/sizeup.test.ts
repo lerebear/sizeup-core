@@ -1,5 +1,5 @@
 import { expect } from "chai"
-import SizeUp from "../src/sizeup"
+import { SizeUp } from "../src/sizeup"
 import { loadFixture } from "./helpers/diff"
 
 describe("Sizeup", () => {

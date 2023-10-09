@@ -7,7 +7,7 @@ import { CategoryConfiguration } from "./category-configuration";
 import { Score } from "./score";
 import { Configuration } from "./configuration";
 
-export default class SizeUp {
+export class SizeUp {
   /**
    * Evaluates a diff for reviewability.
    *
@@ -30,3 +30,5 @@ export default class SizeUp {
     return formula.evaluate(changeset, categories)
   }
 }
+
+export { Score } from "./score";
