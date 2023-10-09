@@ -4,10 +4,8 @@ SizeUp is a library for estimating how difficult a diff will be to review.
 
 ## Installation
 
-For now, `sizeup` must be installed directly from GitHub:
-
 ```
-npm install https://github.com/lerebear/sizeup.git
+npm install sizeup-core
 ```
 
 ## Usage
@@ -21,6 +19,8 @@ To use the library directly, you need to first retrieve a diff, and the pass it
 to `SizeUp.evaluate` (optionally also providing a custom configuration file):
 
 ```ts
+import { SizeUp } from "sizeup-core"
+
 const diff = (
   await octokit
     .rest
