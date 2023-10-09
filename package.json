@@ -7,6 +7,7 @@
   "bugs": "https://github.com/lerebear/sizeup-core/issues",
   "license": "MIT",
   "main": "dist/sizeup.js",
+  "types": "dist/sizeup.d.ts",
   "devDependencies": {
     "@types/chai": "^4.3.6",
     "@types/mocha": "^10.0.1",
@@ -28,7 +29,7 @@
     "build": "npx tsc && npm run copy-assets",
     "lint": "eslint . --ext .ts --config .eslintrc",
     "copy-assets": "mkdir -p dist/config && cp -r src/config dist",
-    "postinstall": "npm run build",
+    "prepack": "npm run build",
     "posttest": "npm run lint",
     "test": "mocha \"test/**/*.test.ts\""
   }
