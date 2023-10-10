@@ -5,7 +5,6 @@ export type Categories = Required<Pick<Configuration, 'categories'>>["categories
 
 /** Validates a group of categories and provides a categorization method. */
 export class CategoryConfiguration {
-  threshold: number
   private categories: Categories
 
   constructor(categories: Categories) {
@@ -49,22 +48,7 @@ export class CategoryConfiguration {
       )
     }
 
-    const thresholdCategories = sorted.filter((category) => category.threshold)
-    if (!thresholdCategories.length){
-      throw new Error(
-        "You must provide one category with a `threshold` value to act as the warning threshold"
-      )
-    }
-
-    if (thresholdCategories.length > 1) {
-      throw new Error(
-        "You can only specify one category with a `threshold` value, but we found at least two: " +
-        thresholdCategories.map((c) => c.name)
-      )
-    }
-
     this.categories = sorted
-    this.threshold = thresholdCategories[0].lte!
   }
 
   /**
