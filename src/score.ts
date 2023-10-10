@@ -21,13 +21,6 @@ export class Score {
    */
   category?: ArrayElement<Categories>
   /**
-   * The threshold value for `result` above which the caller should consider
-   * emitting a warning that the changeset will be difficult to review.
-   * If this value is undefined, then either we encoutered an error when evaluating the formula
-   * or no categories were provided when the `addValue` method was called.
-   */
-  threshold?: number
-  /**
    * An error that we encountered when evaluating the formula on the changeset.
    * If this value is undefined, then no error was encountered during evaluation.
    */
@@ -53,7 +46,6 @@ export class Score {
     this.error = error
     this.result = undefined
     this.category = undefined
-    this.threshold = undefined
   }
 
   /**
@@ -66,7 +58,6 @@ export class Score {
     this.error = undefined
     this.result = value
     this.category = categories?.categorize(value)
-    this.threshold = categories?.threshold
   }
 
   /**
@@ -83,9 +74,7 @@ export class Score {
     return JSON.stringify(
       this,
       (key, value) => {
-        if (key == "category" && value) {
-          return { name: value.name, lte: value.lte }
-        } else if(value instanceof Map) {
+        if(value instanceof Map) {
           return [...value]
         } else {
           return value

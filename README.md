@@ -110,7 +110,6 @@ categories:
     lte: 30
   - name: m
     lte: 100
-    threshold: true
   - name: l
     lte: 500
   - name: xl
