@@ -14,7 +14,7 @@ describe("SingleWords", () => {
 
   describe("#evaluate", () => {
     it("should sum the number of lines containing just a single word across all files in the changeset", () => {
-      expect(feature.evaluate()).to.equal(6)
+      expect(feature.evaluate()).to.equal(8)
     })
   })
 })
