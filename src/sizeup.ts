@@ -16,16 +16,20 @@ export class SizeUp {
    *   pull request. The YAML file should conform to the JSON schema in src/config/schema.json.
    */
   static evaluate(diff: string, configPath?: string): Score {
-    const config: Configuration = configPath ? YAML.parse(fs.readFileSync(configPath, "utf8")) : {}
+    let userSuppliedConfig: Configuration = {}
+    if (configPath) {
+      const parsed = YAML.parse(fs.readFileSync(configPath, "utf8"))
+      userSuppliedConfig = ('sizeup' in parsed) ? parsed.sizeup : parsed
+    }
     const defaultConfig: Configuration = YAML.parse(
       fs.readFileSync(path.resolve(__dirname, "./config/default.yaml"), "utf8")
     )
 
-    const ignoredFilePatterns = config.ignoredFilePatterns || defaultConfig.ignoredFilePatterns
-    const testFilePatterns = config.testFilePatterns || defaultConfig.testFilePatterns
+    const ignoredFilePatterns = userSuppliedConfig.ignoredFilePatterns || defaultConfig.ignoredFilePatterns
+    const testFilePatterns = userSuppliedConfig.testFilePatterns || defaultConfig.testFilePatterns
     const changeset = new Changeset({ diff, ignoredFilePatterns, testFilePatterns })
-    const categories = new CategoryConfiguration(config.categories || defaultConfig.categories!)
-    const formula = new Formula(config.scoring?.formula || defaultConfig.scoring!.formula)
+    const categories = new CategoryConfiguration(userSuppliedConfig.categories || defaultConfig.categories!)
+    const formula = new Formula(userSuppliedConfig.scoring?.formula || defaultConfig.scoring!.formula)
 
     return formula.evaluate(changeset, categories)
   }
