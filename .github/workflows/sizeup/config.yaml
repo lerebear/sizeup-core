@@ -2,4 +2,4 @@ labeling:
   excludeDraftPullRequests: true
 commenting:
   scoreThreshold: 0
-  excludeDraftPullRequests: false
+  excludeDraftPullRequests: true
