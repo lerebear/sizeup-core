@@ -21,4 +21,4 @@ jobs:
         id: sizeup-action
         with:
           token: "${{ secrets.GITHUB_TOKEN }}"
-          configuration-file-path: ".github/workflows/sizeup/config.yaml"
+          configuration-file-path: ""
