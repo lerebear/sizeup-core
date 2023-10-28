@@ -1,5 +1,5 @@
 labeling:
-  excludeDraftPullRequests: true
+  excludeDraftPullRequests: false
 commenting:
   scoreThreshold: 0
-  excludeDraftPullRequests: true
+  excludeDraftPullRequests: false
