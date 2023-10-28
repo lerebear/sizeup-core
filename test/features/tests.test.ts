@@ -18,8 +18,8 @@ describe("Tests", () => {
   })
 
   describe("#evaluate", () => {
-    it("should sum the number of lines added across all test files in the changeset", () => {
-      expect(feature.evaluate()).to.equal(2)
+    it("should sum the number of lines changed across all test files in the changeset", () => {
+      expect(feature.evaluate()).to.equal(5)
     })
   })
 })
