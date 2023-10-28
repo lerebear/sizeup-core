@@ -3,6 +3,7 @@ name: SizeUp
 on: pull_request
 
 permissions:
+  contents: read
   issues: write
   pull-requests: write
 
@@ -12,9 +13,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout this repository
+        uses: actions/checkout@v3
+
       - name: Estimate pull request reviewability
-        uses: lerebear/sizeup-action@v0.2.0
+        uses: lerebear/sizeup-action@b78cb14cee18fb53035976922bd134d82cff4826
         id: sizeup-action
         with:
           token: "${{ secrets.GITHUB_TOKEN }}"
-          configuration-file-path: ""
+          configuration-file-path: ".github/workflows/sizeup/config.yaml"
