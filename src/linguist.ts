@@ -29,7 +29,7 @@ interface CommentStyle {
 }
 
 /** Describes single-line comments in a programming language. */
-interface LineCommentStyle {
+interface LineCommentStyle extends CommentStyle {
   start: string
 }
 
@@ -41,28 +41,77 @@ interface BlockCommentStyle extends CommentStyle {
   end: string
 }
 
-const Ruby: Language = {
-  name: "Ruby",
-  fileExtensions: ["rb"],
-  lineCommentStyle: { start: "#" }
+const pythonStyleComments = {
+  lineCommentStyle: { start: "#" },
 }
 
-const TypeScript: Language = {
-  name: "TypeScript",
-  fileExtensions: ["ts", "tsx"],
-  lineCommentStyle: { start: "//" },
-  blockCommentStyle: { start: "/*", continuation: "*", end: "*/"}
-}
-
-const JavaScript: Language = {
-  name: "JavaScript",
-  fileExtensions: ["js", "jsx"],
+const cStyleComments = {
   lineCommentStyle: { start: "//" },
   blockCommentStyle: { start: "/*", continuation: "*", end: "*/"},
 }
 
-const SUPPORTED_LANGUAGES: Language[] = [
-  Ruby,
-  TypeScript,
+export const CSharp: Language = {
+  name: "C#",
+  fileExtensions: ["cs", "csx"],
+  ...cStyleComments,
+}
+
+export const Go: Language = {
+  name: "Go",
+  fileExtensions: ["go"],
+  ...cStyleComments,
+}
+
+export const Java: Language = {
+  name: "Java",
+  fileExtensions: ["java"],
+  ...cStyleComments,
+}
+
+export const JavaScript: Language = {
+  name: "JavaScript",
+  fileExtensions: ["js", "jsx"],
+  ...cStyleComments,
+}
+
+export const Python: Language = {
+  name: "Python",
+  fileExtensions: ["py"],
+  ...pythonStyleComments,
+}
+
+export const Ruby: Language = {
+  name: "Ruby",
+  fileExtensions: ["rb"],
+  ...pythonStyleComments,
+}
+
+export const Rust: Language = {
+  name: "Rust",
+  fileExtensions: ["rs"],
+  ...cStyleComments,
+}
+
+export const Swift: Language = {
+  name: "Swift",
+  fileExtensions: ["swift"],
+  ...cStyleComments,
+}
+
+export const TypeScript: Language = {
+  name: "TypeScript",
+  fileExtensions: ["ts", "tsx"],
+  ...cStyleComments,
+}
+
+export const SUPPORTED_LANGUAGES: Language[] = [
+  CSharp,
+  Go,
+  Java,
   JavaScript,
+  Python,
+  Ruby,
+  Rust,
+  Swift,
+  TypeScript,
 ];
