@@ -150,7 +150,7 @@ The operands in a formula can be either a numerical constant like `0.5` or `99`,
 | `tests` | The number of additions in a diff that were made in test files[^2] |
 | `whitespace` | The number of additions in a diff that were pure whitespace |
 
-[^1]: Comments are only detected in [supported languages](https://github.com/lerebear/sizeup/blob/2c7ce44eb8d8e6d8d02b46b8451bd06f40ed1abf/src/linguist.ts#L64-L69).
+[^1]: Comments are only detected in [supported languages](https://github.com/lerebear/sizeup-core/blob/be0a5c44207a8592858c64544baea7e5ea5ddf83/src/linguist.ts#L107-L117).
 [^2]: Test additions are only detected in files that match the patterns in the `testFilePatterns` configuration value.
 
 Putting all of that together, we can explain the default formula `- - + additions deletions comments whitespace` as one that sums all changes in the diff (whether additons or deletions), and then substracts each addition that was either a comment or whitespace.
