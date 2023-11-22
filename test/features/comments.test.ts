@@ -1,7 +1,7 @@
 import { expect } from "chai"
 import Changeset from "../../src/changeset"
 import Comments from "../../src/features/comments"
-import { TypeScript, JavaScript, Go, CSharp, Java, Rust, Swift, Python, Ruby, Kotlin} from "../../src/linguist"
+import { TypeScript, JavaScript, Go, CSharp, Java, Rust, Swift, Python, Ruby, Kotlin, YAML} from "../../src/linguist"
 import { loadCStyleCommentFixture, loadPythonStyleCommentFixture } from "../helpers/diff"
 
 describe("Comments", () => {
@@ -12,13 +12,25 @@ describe("Comments", () => {
   })
 
   describe("#evaluate", () => {
-    it("should sum the number of Python-style comments in added or modified lines in the changeset", () => {
-      const pythonStyleCommentLanguages = [
-        Ruby,
-        Python,
-      ]
+    const pythonStyleCommentLanguages = [
+      Ruby,
+      Python,
+      YAML,
+    ]
 
-      for (const lang of pythonStyleCommentLanguages) {
+    const cStyleCommentLanguages = [
+      CSharp,
+      Go,
+      Java,
+      JavaScript,
+      Kotlin,
+      Rust,
+      Swift,
+      TypeScript,
+    ]
+
+    for (const lang of pythonStyleCommentLanguages) {
+      it(`should sum the number of comments in modified lines of a ${lang.name} file`, () => {
         for (const ext of lang.fileExtensions) {
           const feature = new Comments(new Changeset({ diff: loadPythonStyleCommentFixture(ext) }))
           expect(feature.evaluate()).to.equal(
@@ -26,22 +38,11 @@ describe("Comments", () => {
             `expected comments to be recognized correctly for ${lang.name} in file extension ${ext}`
           )
         }
-      }
-    })
+      })
+    }
 
-    it("should sum the number of C-style comments in added or modified lines in the changeset", () => {
-      const cStyleCommentLanguages = [
-        CSharp,
-        Go,
-        Java,
-        JavaScript,
-        Kotlin,
-        Rust,
-        Swift,
-        TypeScript,
-      ]
-
-      for (const lang of cStyleCommentLanguages) {
+    for (const lang of cStyleCommentLanguages) {
+      it(`should sum the number of comments in modified lines of a ${lang.name} file`, () => {
         for (const ext of lang.fileExtensions) {
           const feature = new Comments(new Changeset({ diff: loadCStyleCommentFixture(ext) }))
           expect(feature.evaluate()).to.equal(
@@ -49,7 +50,7 @@ describe("Comments", () => {
             `expected comments to be recognized correctly for ${lang.name} in file extension ${ext}`
           )
         }
-      }
-    })
+      })
+    }
   })
 })

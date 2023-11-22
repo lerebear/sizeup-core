@@ -110,6 +110,13 @@ export const TypeScript: Language = {
   ...cStyleComments,
 }
 
+export const YAML: Language = {
+  name: "YAML",
+  fileExtensions: ["yml", "yaml"],
+  ...pythonStyleComments,
+}
+
+
 export const SUPPORTED_LANGUAGES: Language[] = [
   CSharp,
   Go,
@@ -121,4 +128,5 @@ export const SUPPORTED_LANGUAGES: Language[] = [
   Rust,
   Swift,
   TypeScript,
+  YAML,
 ];
