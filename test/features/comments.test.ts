@@ -1,8 +1,8 @@
 import { expect } from "chai"
 import Changeset from "../../src/changeset"
 import Comments from "../../src/features/comments"
-import { TypeScript, JavaScript, Go, CSharp, Java, Rust, Swift, Python, Ruby, Kotlin, YAML} from "../../src/linguist"
-import { loadCStyleCommentFixture, loadPythonStyleCommentFixture } from "../helpers/diff"
+import { TypeScript, JavaScript, Go, CSharp, Java, Rust, Swift, Python, Ruby, Kotlin, YAML, XML, HTML, CommentStyleFamily, Language} from "../../src/linguist"
+import { loadCommentFixture } from "../helpers/diff"
 
 describe("Comments", () => {
   describe(".variableName", () => {
@@ -12,41 +12,47 @@ describe("Comments", () => {
   })
 
   describe("#evaluate", () => {
-    const pythonStyleCommentLanguages = [
-      Ruby,
-      Python,
-      YAML,
+    const languageMatrix: [Language, CommentStyleFamily][] = [
+      [CSharp, CommentStyleFamily.C],
+      [Go, CommentStyleFamily.C],
+      [HTML, CommentStyleFamily.HTML],
+      [Java, CommentStyleFamily.C],
+      [JavaScript, CommentStyleFamily.C],
+      [Kotlin, CommentStyleFamily.C],
+      [Python, CommentStyleFamily.Python],
+      [Ruby, CommentStyleFamily.Python],
+      [Rust, CommentStyleFamily.C],
+      [Swift, CommentStyleFamily.C],
+      [TypeScript, CommentStyleFamily.C],
+      [XML, CommentStyleFamily.HTML],
+      [YAML, CommentStyleFamily.Python],
     ]
 
-    const cStyleCommentLanguages = [
-      CSharp,
-      Go,
-      Java,
-      JavaScript,
-      Kotlin,
-      Rust,
-      Swift,
-      TypeScript,
-    ]
+    for (const spec of languageMatrix) {
+      const lang = spec[0];
+      const commentFamily = spec[1];
 
-    for (const lang of pythonStyleCommentLanguages) {
-      it(`should sum the number of comments in modified lines of a ${lang.name} file`, () => {
-        for (const ext of lang.fileExtensions) {
-          const feature = new Comments(new Changeset({ diff: loadPythonStyleCommentFixture(ext) }))
-          expect(feature.evaluate()).to.equal(
-            4,
-            `expected comments to be recognized correctly for ${lang.name} in file extension ${ext}`
-          )
+      let numExpectedComments = 0;
+      switch(commentFamily) {
+        case CommentStyleFamily.C: {
+          numExpectedComments = 6;
+          break
         }
-      })
-    }
+        case CommentStyleFamily.HTML: {
+          numExpectedComments = 7;
+          break
+        }
+        case CommentStyleFamily.Python: {
+          numExpectedComments = 4;
+          break
+        }
+      }
 
-    for (const lang of cStyleCommentLanguages) {
       it(`should sum the number of comments in modified lines of a ${lang.name} file`, () => {
         for (const ext of lang.fileExtensions) {
-          const feature = new Comments(new Changeset({ diff: loadCStyleCommentFixture(ext) }))
+          const feature = new Comments(new Changeset({ diff: loadCommentFixture(commentFamily, ext) }))
           expect(feature.evaluate()).to.equal(
-            6,
+            numExpectedComments,
             `expected comments to be recognized correctly for ${lang.name} in file extension ${ext}`
           )
         }
