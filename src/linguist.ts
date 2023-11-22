@@ -17,7 +17,7 @@ export interface Language {
   /** The extensions used by files written in the language. */
   fileExtensions: string[]
   /** The style used for single-line comments. */
-  lineCommentStyle: LineCommentStyle
+  lineCommentStyle?: LineCommentStyle
   /** The style used for multi-line comments. */
   blockCommentStyle?: BlockCommentStyle
 }
@@ -41,13 +41,23 @@ interface BlockCommentStyle extends CommentStyle {
   end: string
 }
 
-const pythonStyleComments = {
-  lineCommentStyle: { start: "#" },
+export enum CommentStyleFamily {
+  C = "c",
+  HTML = "html",
+  Python = "python",
 }
 
 const cStyleComments = {
   lineCommentStyle: { start: "//" },
   blockCommentStyle: { start: "/*", continuation: "*", end: "*/"},
+}
+
+const htmlStyleComments = {
+  blockCommentStyle: { start: "<!--", continuation: "", end: "-->"},
+}
+
+const pythonStyleComments = {
+  lineCommentStyle: { start: "#" },
 }
 
 export const CSharp: Language = {
@@ -60,6 +70,12 @@ export const Go: Language = {
   name: "Go",
   fileExtensions: ["go"],
   ...cStyleComments,
+}
+
+export const HTML: Language = {
+  name: "HTML",
+  fileExtensions: ["htm", "html"],
+  ...htmlStyleComments,
 }
 
 export const Java: Language = {
@@ -110,6 +126,12 @@ export const TypeScript: Language = {
   ...cStyleComments,
 }
 
+export const XML: Language = {
+  name: "XML",
+  fileExtensions: ["xml"],
+  ...htmlStyleComments,
+}
+
 export const YAML: Language = {
   name: "YAML",
   fileExtensions: ["yml", "yaml"],
@@ -120,6 +142,7 @@ export const YAML: Language = {
 export const SUPPORTED_LANGUAGES: Language[] = [
   CSharp,
   Go,
+  HTML,
   Java,
   JavaScript,
   Kotlin,
@@ -128,5 +151,6 @@ export const SUPPORTED_LANGUAGES: Language[] = [
   Rust,
   Swift,
   TypeScript,
+  XML,
   YAML,
 ];
