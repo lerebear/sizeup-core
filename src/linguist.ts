@@ -74,6 +74,12 @@ export const JavaScript: Language = {
   ...cStyleComments,
 }
 
+export const Kotlin: Language = {
+  name: "Kotlin",
+  fileExtensions: ["kt", "kts"],
+  ...cStyleComments,
+}
+
 export const Python: Language = {
   name: "Python",
   fileExtensions: ["py"],
@@ -109,6 +115,7 @@ export const SUPPORTED_LANGUAGES: Language[] = [
   Go,
   Java,
   JavaScript,
+  Kotlin,
   Python,
   Ruby,
   Rust,
