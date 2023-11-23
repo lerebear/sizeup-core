@@ -104,22 +104,22 @@ As shown [above](#api), `SizeUp.evaluate` accepts a YAML configuration file that
 
 ```yaml
 categories:
-  - name: xs
-    lte: 10
-  - name: s
-    lte: 30
-  - name: m
-    lte: 100
-  - name: l
-    lte: 500
-  - name: xl
+    - name: xs
+      lte: 10
+    - name: s
+      lte: 30
+    - name: m
+      lte: 100
+    - name: l
+      lte: 500
+    - name: xl
 ignoredFilePatterns:
-  - CODEOWNERS
-  - SERVICEOWNERS
+    - CODEOWNERS
+    - SERVICEOWNERS
 testFilePatterns:
-  - "*_test.rb"
+    - "*_test.rb"
 scoring:
-  formula: "- - + additions deletions comments whitespace"
+    formula: "- - + additions deletions comments whitespace"
 ```
 
 The default configuration that is used when no configuration file is provided can be found in [`src/config/examples/default.yaml`](./src/config/examples/default.yaml).
@@ -161,7 +161,7 @@ This section contains notes for how to develop this library.
 
 ### Regenerating the Typescript interface for the configuration schema
 
-We use a [JSON schema](./src/config/schema.json) to define the configuration options that this library supports. We then use the [`json-schema-to-typescript`](https://www.npmjs.com/package/json-schema-to-typescript) package to generate the [TypeScript `Configuration` interface](./src/configuration.ts) that we use in code..
+We use a [JSON schema](./src/config/schema.json) to define the configuration options that this library supports. We then use the [`json-schema-to-typescript`](https://www.npmjs.com/package/json-schema-to-typescript) package to generate the [TypeScript `Configuration` interface](./src/configuration.ts) that we use in code.
 
 [`json-schema-to-typescript`](https://www.npmjs.com/package/json-schema-to-typescript) has two notable shortcomings:
 
