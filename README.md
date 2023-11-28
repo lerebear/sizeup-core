@@ -144,14 +144,11 @@ The operands in a formula can be either a numerical constant like `0.5` or `99`,
 | Feature | Description |
 | :--- | :--- |
 | `additions` | The number of lines that were added in a diff |
-| `comments`  | The number of additions in a diff that are recognized as a programming language comment[^1] |
+| `comments`  | The number of additions in a diff that match the syntax of a comment in a [supported programming language](https://github.com/lerebear/sizeup-core/blob/31a24f0da572698c372a7712f90aabf90308c52e/src/linguist.ts#L142-L156). |
 | `deletions` | The number of lines that were deleted in a diff |
 | `single-words` | The number of additions in a diff that are made up of a single word on its own line |
-| `tests` | The number of additions in a diff that were made in test files[^2] |
+| `tests` | The number of additions in a diff that were made in files that match a pattern from the `testFilePatterns` configuration value. |
 | `whitespace` | The number of additions in a diff that were pure whitespace |
-
-[^1]: Comments are only detected in [supported languages](https://github.com/lerebear/sizeup-core/blob/31a24f0da572698c372a7712f90aabf90308c52e/src/linguist.ts#L142-L156).
-[^2]: Test additions are only detected in files that match the patterns in the `testFilePatterns` configuration value.
 
 Putting all of that together, we can explain the default formula `- - + additions deletions comments whitespace` as one that sums all changes in the diff (whether additons or deletions), and then substracts each addition that was either a comment or whitespace.
 
