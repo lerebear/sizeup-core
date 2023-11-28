@@ -144,7 +144,7 @@ The operands in a formula can be either a numerical constant like `0.5` or `99`,
 | Feature | Description |
 | :--- | :--- |
 | `additions` | The number of lines that were added in a diff |
-| `comments`  | The number of additions in a diff that match the syntax of a comment in a [supported programming language](https://github.com/lerebear/sizeup-core/blob/6d1ba961131e32731312937cbf3e9945e4d41afe/src/linguist.ts#L154-L170). |
+| `comments`  | The number of additions in a diff that match the syntax of a comment in a [supported programming languages](https://github.com/lerebear/sizeup-core/blob/6d1ba961131e32731312937cbf3e9945e4d41afe/src/linguist.ts#L154-L170). |
 | `deletions` | The number of lines that were deleted in a diff |
 | `single-words` | The number of additions in a diff that are made up of a single word on its own line |
 | `tests` | The number of additions in a diff that were made in files that match a pattern from the `testFilePatterns` configuration value. |
