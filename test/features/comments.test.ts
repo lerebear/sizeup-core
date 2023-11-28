@@ -1,7 +1,7 @@
 import { expect } from "chai"
 import Changeset from "../../src/changeset"
 import Comments from "../../src/features/comments"
-import { TypeScript, JavaScript, Go, CSharp, Java, Rust, Swift, Python, Ruby, Kotlin, YAML, XML, HTML, CommentStyleFamily, Language} from "../../src/linguist"
+import { TypeScript, JavaScript, Go, CSharp, Java, Rust, Swift, Python, Ruby, Kotlin, YAML, XML, HTML, CommentStyleFamily, Language, StringsDict, Strings} from "../../src/linguist"
 import { loadCommentFixture } from "../helpers/diff"
 
 describe("Comments", () => {
@@ -22,6 +22,8 @@ describe("Comments", () => {
       [Python, CommentStyleFamily.Python],
       [Ruby, CommentStyleFamily.Python],
       [Rust, CommentStyleFamily.C],
+      [Strings, CommentStyleFamily.C],
+      [StringsDict, CommentStyleFamily.HTML],
       [Swift, CommentStyleFamily.C],
       [TypeScript, CommentStyleFamily.C],
       [XML, CommentStyleFamily.HTML],

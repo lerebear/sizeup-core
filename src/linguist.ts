@@ -114,6 +114,18 @@ export const Rust: Language = {
   ...cStyleComments,
 }
 
+export const Strings: Language = {
+  name: "Strings",
+  fileExtensions: ["strings"],
+  ...cStyleComments,
+}
+
+export const StringsDict: Language = {
+  name: "StringsDict",
+  fileExtensions: ["stringsdict"],
+  ...htmlStyleComments,
+}
+
 export const Swift: Language = {
   name: "Swift",
   fileExtensions: ["swift"],
@@ -149,6 +161,8 @@ export const SUPPORTED_LANGUAGES: Language[] = [
   Python,
   Ruby,
   Rust,
+  Strings,
+  StringsDict,
   Swift,
   TypeScript,
   XML,
