@@ -191,3 +191,5 @@ npx \
 ```sh
 npm uninstall json-schema-to-typescript
 ```
+
+Add a line.
