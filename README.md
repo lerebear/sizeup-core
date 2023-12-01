@@ -78,11 +78,10 @@ The final log statement in that snippet will output a serialized `Score`:
 
 ## API
 
-The public API for this library consists of a single `SizeUp` class that has
-a single static method called `evaluate`:
+The public API for this library consists of the single, static `SizeUp.evaluate` method:
 
 ```ts
-class SizeUp {
+export class SizeUp {
   /**
    * Evaluates a diff for reviewability.
    *
