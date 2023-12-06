@@ -14,10 +14,12 @@ jobs:
 
     steps:
       - name: Checkout this repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+        with:
+          ref: "${{ github.event.pull_request.head.ref }}"
 
       - name: Estimate pull request reviewability
-        uses: lerebear/sizeup-action@v0.2.0
+        uses: lerebear/sizeup-action@f4c3161f0bb5b5e110d773995ca41747d8dc7814
         id: sizeup-action
         with:
           token: "${{ secrets.GITHUB_TOKEN }}"
