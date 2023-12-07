@@ -1,13 +1,10 @@
 import { expect } from "chai"
 import Changeset from "../../src/changeset"
 import Comments from "../../src/features/comments"
-import { loadFixture } from "../helpers/diff"
+import { TypeScript, JavaScript, Go, CSharp, Java, Rust, Swift, Python, Ruby, Kotlin, YAML, XML, HTML, CommentStyleFamily, Language, StringsDict, Strings} from "../../src/linguist"
+import { loadCommentFixture } from "../helpers/diff"
 
 describe("Comments", () => {
-  const rubyFeature = new Comments(new Changeset({ diff: loadFixture("ruby-comment") }))
-  const typescriptFeature = new Comments(new Changeset({ diff: loadFixture("typescript-comment") }))
-  const javascriptFeature = new Comments(new Changeset({ diff: loadFixture("javascript-comment") }))
-
   describe(".variableName", () => {
     it("should return the kebab-cased named of the class", () => {
       expect(Comments.variableName()).to.equal("comments")
@@ -15,16 +12,53 @@ describe("Comments", () => {
   })
 
   describe("#evaluate", () => {
-    it("should sum the number of Ruby comments in added or modified lines in the changeset", () => {
-      expect(rubyFeature.evaluate()).to.equal(4)
-    })
+    const languageMatrix: [Language, CommentStyleFamily][] = [
+      [CSharp, CommentStyleFamily.C],
+      [Go, CommentStyleFamily.C],
+      [HTML, CommentStyleFamily.HTML],
+      [Java, CommentStyleFamily.C],
+      [JavaScript, CommentStyleFamily.C],
+      [Kotlin, CommentStyleFamily.C],
+      [Python, CommentStyleFamily.Python],
+      [Ruby, CommentStyleFamily.Python],
+      [Rust, CommentStyleFamily.C],
+      [Strings, CommentStyleFamily.C],
+      [StringsDict, CommentStyleFamily.HTML],
+      [Swift, CommentStyleFamily.C],
+      [TypeScript, CommentStyleFamily.C],
+      [XML, CommentStyleFamily.HTML],
+      [YAML, CommentStyleFamily.Python],
+    ]
 
-    it("should sum the number of TypeScript comments in added or modified lines in the changeset", () => {
-      expect(typescriptFeature.evaluate()).to.equal(6)
-    })
+    for (const spec of languageMatrix) {
+      const lang = spec[0];
+      const commentFamily = spec[1];
 
-    it("should sum the number of JavaScript comments in added or modified lines in the changeset", () => {
-      expect(javascriptFeature.evaluate()).to.equal(6)
-    })
+      let numExpectedComments = 0;
+      switch(commentFamily) {
+        case CommentStyleFamily.C: {
+          numExpectedComments = 6;
+          break
+        }
+        case CommentStyleFamily.HTML: {
+          numExpectedComments = 7;
+          break
+        }
+        case CommentStyleFamily.Python: {
+          numExpectedComments = 4;
+          break
+        }
+      }
+
+      it(`should sum the number of comments in modified lines of a ${lang.name} file`, () => {
+        for (const ext of lang.fileExtensions) {
+          const feature = new Comments(new Changeset({ diff: loadCommentFixture(commentFamily, ext) }))
+          expect(feature.evaluate()).to.equal(
+            numExpectedComments,
+            `expected comments to be recognized correctly for ${lang.name} in file extension ${ext}`
+          )
+        }
+      })
+    }
   })
 })
