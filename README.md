@@ -78,11 +78,10 @@ The final log statement in that snippet will output a serialized `Score`:
 
 ## API
 
-The public API for this library consists of a single `SizeUp` class that has
-a single static method called `evaluate`:
+The public API for this library consists of the single, static `SizeUp.evaluate` method:
 
 ```ts
-class SizeUp {
+export class SizeUp {
   /**
    * Evaluates a diff for reviewability.
    *
@@ -144,14 +143,11 @@ The operands in a formula can be either a numerical constant like `0.5` or `99`,
 | Feature | Description |
 | :--- | :--- |
 | `additions` | The number of lines that were added in a diff |
-| `comments`  | The number of additions in a diff that are recognized as a programming language comment[^1] |
+| `comments`  | The number of additions in a diff that match the syntax of a comment in a [supported programming language](https://github.com/lerebear/sizeup-core/blob/6d1ba961131e32731312937cbf3e9945e4d41afe/src/linguist.ts#L154-L170). |
 | `deletions` | The number of lines that were deleted in a diff |
 | `single-words` | The number of additions in a diff that are made up of a single word on its own line |
-| `tests` | The number of additions in a diff that were made in test files[^2] |
+| `tests` | The number of additions in a diff that were made in files that match a pattern from the `testFilePatterns` configuration value. |
 | `whitespace` | The number of additions in a diff that were pure whitespace |
-
-[^1]: Comments are only detected in [supported languages](https://github.com/lerebear/sizeup/blob/2c7ce44eb8d8e6d8d02b46b8451bd06f40ed1abf/src/linguist.ts#L64-L69).
-[^2]: Test additions are only detected in files that match the patterns in the `testFilePatterns` configuration value.
 
 Putting all of that together, we can explain the default formula `- - + additions deletions comments whitespace` as one that sums all changes in the diff (whether additons or deletions), and then substracts each addition that was either a comment or whitespace.
 
@@ -161,7 +157,7 @@ This section contains notes for how to develop this library.
 
 ### Regenerating the Typescript interface for the configuration schema
 
-We use a [JSON schema](./src/config/schema.json) to define the configuration options that this library supports. We then use the [`json-schema-to-typescript`](https://www.npmjs.com/package/json-schema-to-typescript) package to generate the [TypeScript `Configuration` interface](./src/configuration.ts) that we use in code..
+We use a [JSON schema](./src/config/schema.json) to define the configuration options that this library supports. We then use the [`json-schema-to-typescript`](https://www.npmjs.com/package/json-schema-to-typescript) package to generate the [TypeScript `Configuration` interface](./src/configuration.ts) that we use in code.
 
 [`json-schema-to-typescript`](https://www.npmjs.com/package/json-schema-to-typescript) has two notable shortcomings:
 

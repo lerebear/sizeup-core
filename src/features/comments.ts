@@ -22,8 +22,8 @@ export default class Comments extends Feature {
           continue
         }
 
-        const line = change.content.substring(1).trimStart()
-        if (line.startsWith(file.language.lineCommentStyle.start)) {
+        const line = change.content.substring(1).trim()
+        if (file.language.lineCommentStyle && line.startsWith(file.language.lineCommentStyle.start)) {
           sum++
           blockCommentLines = 0
         } else if (file.language.blockCommentStyle && line.startsWith(file.language.blockCommentStyle.start) && line.endsWith(file.language.blockCommentStyle.end)) {
@@ -31,7 +31,7 @@ export default class Comments extends Feature {
           blockCommentLines = 0
         } else if (file.language.blockCommentStyle && line.startsWith(file.language.blockCommentStyle.start)) {
           blockCommentLines++
-        } else if (file.language.blockCommentStyle && blockCommentLines > 0 && line.startsWith(file.language.blockCommentStyle.end)) {
+        } else if (file.language.blockCommentStyle && blockCommentLines > 0 && line.endsWith(file.language.blockCommentStyle.end)) {
           // We must check for block comment end _before_ we check for block comment continuation,
           // because the block comment continuation is frequently a substring of the block comment
           // end (e.g. in languages with C-style comments, "*" is a substring of "*/")

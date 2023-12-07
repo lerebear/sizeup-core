@@ -3,12 +3,13 @@ name: SizeUp
 on: pull_request
 
 permissions:
+  contents: read
   issues: write
   pull-requests: write
 
 jobs:
   sizeup:
-    name: Run sizeup estimation
+    name: Estimate reviewability
     runs-on: ubuntu-latest
 
     steps:
@@ -31,4 +32,5 @@ jobs:
         id: sizeup-action
         with:
           token: "${{ secrets.GITHUB_TOKEN }}"
-          configuration-file-path: ""
+          # Uncomment line below to use custom sizeup-action configuration.
+          # configuration-file-path: ".github/workflows/sizeup/config.yaml"

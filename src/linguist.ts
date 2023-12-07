@@ -17,7 +17,7 @@ export interface Language {
   /** The extensions used by files written in the language. */
   fileExtensions: string[]
   /** The style used for single-line comments. */
-  lineCommentStyle: LineCommentStyle
+  lineCommentStyle?: LineCommentStyle
   /** The style used for multi-line comments. */
   blockCommentStyle?: BlockCommentStyle
 }
@@ -29,7 +29,7 @@ interface CommentStyle {
 }
 
 /** Describes single-line comments in a programming language. */
-interface LineCommentStyle {
+interface LineCommentStyle extends CommentStyle {
   start: string
 }
 
@@ -41,28 +41,130 @@ interface BlockCommentStyle extends CommentStyle {
   end: string
 }
 
-const Ruby: Language = {
-  name: "Ruby",
-  fileExtensions: ["rb"],
-  lineCommentStyle: { start: "#" }
+export enum CommentStyleFamily {
+  C = "c",
+  HTML = "html",
+  Python = "python",
 }
 
-const TypeScript: Language = {
-  name: "TypeScript",
-  fileExtensions: ["ts", "tsx"],
-  lineCommentStyle: { start: "//" },
-  blockCommentStyle: { start: "/*", continuation: "*", end: "*/"}
-}
-
-const JavaScript: Language = {
-  name: "JavaScript",
-  fileExtensions: ["js", "jsx"],
+const cStyleComments = {
   lineCommentStyle: { start: "//" },
   blockCommentStyle: { start: "/*", continuation: "*", end: "*/"},
 }
 
-const SUPPORTED_LANGUAGES: Language[] = [
-  Ruby,
-  TypeScript,
+const htmlStyleComments = {
+  blockCommentStyle: { start: "<!--", continuation: "", end: "-->"},
+}
+
+const pythonStyleComments = {
+  lineCommentStyle: { start: "#" },
+}
+
+export const CSharp: Language = {
+  name: "C#",
+  fileExtensions: ["cs", "csx"],
+  ...cStyleComments,
+}
+
+export const Go: Language = {
+  name: "Go",
+  fileExtensions: ["go"],
+  ...cStyleComments,
+}
+
+export const HTML: Language = {
+  name: "HTML",
+  fileExtensions: ["htm", "html"],
+  ...htmlStyleComments,
+}
+
+export const Java: Language = {
+  name: "Java",
+  fileExtensions: ["java"],
+  ...cStyleComments,
+}
+
+export const JavaScript: Language = {
+  name: "JavaScript",
+  fileExtensions: ["js", "jsx"],
+  ...cStyleComments,
+}
+
+export const Kotlin: Language = {
+  name: "Kotlin",
+  fileExtensions: ["kt", "kts"],
+  ...cStyleComments,
+}
+
+export const Python: Language = {
+  name: "Python",
+  fileExtensions: ["py"],
+  ...pythonStyleComments,
+}
+
+export const Ruby: Language = {
+  name: "Ruby",
+  fileExtensions: ["rb"],
+  ...pythonStyleComments,
+}
+
+export const Rust: Language = {
+  name: "Rust",
+  fileExtensions: ["rs"],
+  ...cStyleComments,
+}
+
+export const Strings: Language = {
+  name: "Strings",
+  fileExtensions: ["strings"],
+  ...cStyleComments,
+}
+
+export const StringsDict: Language = {
+  name: "StringsDict",
+  fileExtensions: ["stringsdict"],
+  ...htmlStyleComments,
+}
+
+export const Swift: Language = {
+  name: "Swift",
+  fileExtensions: ["swift"],
+  ...cStyleComments,
+}
+
+export const TypeScript: Language = {
+  name: "TypeScript",
+  fileExtensions: ["ts", "tsx"],
+  ...cStyleComments,
+}
+
+export const XML: Language = {
+  name: "XML",
+  fileExtensions: ["xml"],
+  ...htmlStyleComments,
+}
+
+export const YAML: Language = {
+  name: "YAML",
+  fileExtensions: ["yml", "yaml"],
+  ...pythonStyleComments,
+}
+
+
+export const SUPPORTED_LANGUAGES: Language[] = [
+  CSharp,
+  Go,
+  HTML,
+  Java,
   JavaScript,
+  Kotlin,
+  Python,
+  Ruby,
+  Rust,
+  Strings,
+  StringsDict,
+  Swift,
+  TypeScript,
+  XML,
+  YAML,
 ];
