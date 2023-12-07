@@ -31,4 +31,3 @@ jobs:
         id: sizeup-action
         with:
           token: "${{ secrets.GITHUB_TOKEN }}"
-          configuration-file-path: ""
