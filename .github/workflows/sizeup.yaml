@@ -28,7 +28,7 @@ jobs:
           ref: "${{ github.event.pull_request.head.ref }}"
 
       - name: Estimate pull request reviewability
-        uses: lerebear/sizeup-action@0.4.1
+        uses: lerebear/sizeup-action@v0.4.1
         id: sizeup-action
         with:
           token: "${{ secrets.GITHUB_TOKEN }}"
