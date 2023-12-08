@@ -28,7 +28,7 @@ jobs:
           fetch-depth: "${{ steps.set-checkout-depth.outputs.depth }}"
 
       - name: Estimate pull request reviewability
-        uses: lerebear/sizeup-action@v0.4.1
+        uses: lerebear/sizeup-action@f93ba0872f47b8d2cd8642e21e1321c7c189b471
         id: sizeup-action
         with:
           token: "${{ secrets.GITHUB_TOKEN }}"
