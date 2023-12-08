@@ -32,5 +32,4 @@ jobs:
         id: sizeup-action
         with:
           token: "${{ secrets.GITHUB_TOKEN }}"
-          # Uncomment line below to use custom sizeup-action configuration.
           # configuration-file-path: ".github/workflows/sizeup/config.yaml"
