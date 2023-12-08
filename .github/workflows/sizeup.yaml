@@ -25,7 +25,8 @@ jobs:
       - name: Checkout this repository
         uses: actions/checkout@v4
         with:
-          ref: "${{ github.event.pull_request.head.ref }}"
+          fetch-depth: "${{ steps.set-checkout-depth.outputs.depth }}"
+          # ref: "${{ github.event.pull_request.head.ref }}"
 
       - name: Estimate pull request reviewability
         uses: lerebear/sizeup-action@v0.4.1
