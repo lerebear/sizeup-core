@@ -13,22 +13,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Set the checkout depth to use in the next step.
-      # This step must be included in order for the diff that we evaluate to be
-      # computed correctly.
-      - name: 'Set checkout depth to include base commit'
-        id: 'set-checkout-depth'
-        run: echo "depth=$(( ${{ github.event.pull_request.commits }} + 1 ))" >> "$GITHUB_OUTPUT"
-
       # Check out a copy of this repository so that we can compute a diff to
       # evaluate and load the Action's configuration.
       - name: Checkout this repository
         uses: actions/checkout@v4
-        with:
-          fetch-depth: "${{ steps.set-checkout-depth.outputs.depth }}"
 
       - name: Estimate pull request reviewability
-        uses: lerebear/sizeup-action@v0.4.1
+        uses: lerebear/sizeup-action@f93ba0872f47b8d2cd8642e21e1321c7c189b471
         id: sizeup-action
         with:
           token: "${{ secrets.GITHUB_TOKEN }}"
