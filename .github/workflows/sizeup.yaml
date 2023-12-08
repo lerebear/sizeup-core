@@ -13,8 +13,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Check out a copy of this repository so that we can compute a diff to
-      # evaluate and load the Action's configuration.
       - name: Checkout this repository
         uses: actions/checkout@v4
 
