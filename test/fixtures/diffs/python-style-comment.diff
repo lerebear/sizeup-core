@@ -1,7 +1,7 @@
-diff --git a/lorem.rb b/lorem.rb
+diff --git a/lorem.ext b/lorem.ext
 index 70714bc..f0253cf 100644
---- a/lorem.rb
-+++ b/lorem.rb
+--- a/lorem.ext
++++ b/lorem.ext
 @@ -1,9 +1,15 @@
 -Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 +# Lorem ipsum dolor sit amet, consectetur adipiscing elit.

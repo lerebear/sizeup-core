@@ -1,0 +1,28 @@
+diff --git a/lorem.ext b/lorem.ext
+index 70714bc..f0253cf 100644
+--- lorem.ext
++++ lorem.ext
+@@ -2,11 +2,21 @@
+ <html>
+
+    <head>
+-      <title>Using Comment Tag</title>
++      <title>This change is innocuous</title>
+    </head>
+
+    <body>
+-      <p>This is <comment>not</comment> Internet Explorer.</p>
++      <!-- This is single-line comment -->
++      <p>This is <comment>not</comment> Internet Explorer?</p>
++      <!-- this is
++         one type of
++       multi-line comment -->
++
++       <b> This is markup </b>
++
++      <!--
++         this is another type of multi-line comment
++      -->
+    </body>
+
+ </html>
