@@ -6,13 +6,18 @@ import { FeatureRegistry } from "./registry"
 import { Score } from "./score"
 
 const NUMERIC_CONSTANT_RE = /-?\d+(\.\d+)?/
+const ALIAS_RE = /^[\w][\w-]*$/
 
 /** Represents a mathematical expression that we use to evaluate a Changeset. */
 export class Formula {
   expression: string
+  aliases: Map<string, string>
+  cache: Map<string, number>
 
-  constructor(expression: string) {
+  constructor(expression: string, aliases: Map<string, string> = new Map(), cache: Map<string, number> = new Map()) {
     this.expression = expression
+    this.aliases = aliases
+    this.cache = cache
   }
 
   /**
@@ -31,19 +36,22 @@ export class Formula {
       const token = tokens.pop()!
       const operator = this.toOperator(token)
 
-      if (!this.isSupportedToken(token)) {
-        result.addError({
-          message: (`Formula contains unsupported token: ${token}`),
-          tokenPosition
-        })
+      if (!this.isValidToken(token, tokenPosition, result)) {
         return result
       }
 
-      if (this.isFeature(token)) {
+      if (this.cache.has(token)) {
+        stack.push(this.cache.get(token)!)
+      } else if (this.isAlias(token)) {
+        const aliasFormula = new Formula(this.aliases.get(token)!, this.aliases, this.cache)
+        stack.push(aliasFormula.evaluate(changeset).result!)
+      } else if (this.isFeature(token)) {
         const FeatureClass = FeatureRegistry.get(token)!
         const feature = new FeatureClass(changeset)
         const value = feature.evaluate()
-        result.recordVariableSubstitution((FeatureClass as unknown as typeof Feature).variableName(), value)
+        const variableName = (FeatureClass as unknown as typeof Feature).variableName()
+        result.recordVariableSubstitution(variableName, value)
+        this.cache.set(variableName, value)
         stack.push(value)
       } else if (this.isNumericConstant(token)) {
         stack.push(parseFloat(token))
@@ -73,6 +81,34 @@ export class Formula {
     return result
   }
 
+  private isValidToken(token: string, position: number, result: Score) {
+    if (!this.isSupportedToken(token)) {
+      result.addError({
+        message: (`Formula contains unsupported token: ${token}`),
+        tokenPosition: position
+      })
+      return false
+    }
+
+    if (this.isAlias(token) && this.isFeature(token)) {
+      result.addError({
+        message: `Alias must not share a name with a feature: ${token}`,
+        tokenPosition: position
+      })
+      return false
+    }
+
+    if (this.isAlias(token) && !token.match(ALIAS_RE)) {
+      result.addError({
+        message: `Alias does not match ${ALIAS_RE}: ${token}`,
+        tokenPosition: position
+      })
+      return false
+    }
+
+    return true
+  }
+
   private isSupportedToken(token: string): boolean {
     return this.isOperator(token) || this.isOperand(token)
   }
@@ -90,7 +126,11 @@ export class Formula {
   }
 
   private isOperand(token: string): boolean {
-    return this.isFeature(token) || this.isNumericConstant(token)
+    return this.isAlias(token) || this.isFeature(token) || this.isNumericConstant(token)
+  }
+
+  private isAlias(token: string): boolean {
+    return this.aliases.has(token)
   }
 
   private isFeature(token: string): boolean {

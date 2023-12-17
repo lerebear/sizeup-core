@@ -55,6 +55,18 @@ describe("Formula", () => {
       expect(score.result).to.equal(1)
     })
 
+    it("supports aliases", () => {
+      const formula = new Formula(
+        "- boosted-deletions boosted-additions",
+        new Map([["boosted-deletions", "* deletions 2"], ["boosted-additions", "+ additions 17"]])
+      )
+      const changeset = new Changeset({ diff: loadFixture("mostly-deletions") })
+      const score = formula.evaluate(changeset)
+
+      expect(score.error, score.error?.message).to.be.undefined
+      expect(score.result).to.equal(0)
+    })
+
     it("complains if the formula contains an unsupported token", () => {
       const formula = new Formula("+ additions an-unimplemented-feature")
       const score = formula.evaluate(changeset)
@@ -76,6 +88,22 @@ describe("Formula", () => {
       const score = formula.evaluate(changeset)
 
       expect(score.error?.message).to.equal("Formula contains too many operands")
+      expect(score.result).to.be.undefined
+    })
+
+    it("complains if an alias has the same name as a feature", () => {
+      const formula = new Formula("+ additions 9", new Map([["additions", "1"]]))
+      const score = formula.evaluate(changeset)
+
+      expect(score.error?.message).to.equal("Alias must not share a name with a feature: additions")
+      expect(score.result).to.be.undefined
+    })
+
+    it("complains if the name of an alias does not match the allowed pattern", () => {
+      const formula = new Formula("+ -one 9", new Map([["-one", "1"]]))
+      const score = formula.evaluate(changeset)
+
+      expect(score.error?.message).to.equal("Alias does not match /^[\\w][\\w-]*$/: -one")
       expect(score.result).to.be.undefined
     })
 
