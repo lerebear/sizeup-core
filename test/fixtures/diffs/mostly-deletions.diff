@@ -1,0 +1,19 @@
+diff --git a/lorem.ts b/lorem.ts
+index c61677e..37c08b4 100644
+--- a/lorem.ts
++++ b/lorem.ts
+@@ -8,13 +8,5 @@
+ "Phasellus aliquet ipsum sit amet ligula ullamcorper, id posuere urna porttitor."
+ "Nunc ac urna vehicula, ullamcorper odio sed, hendrerit quam."
+ "Nullam eget massa sit amet dui maximus pellentesque."
+-"Cras laoreet enim tincidunt metus varius, in interdum est congue."
+-"Aliquam vitae mattis mauris, et dictum tellus."
+-"Pellentesque dictum magna velit, ac placerat nisl faucibus id."
+-"Cras interdum diam eget nunc maximus porttitor."
+-"Nam ac rutrum felis, vitae placerat metus."
+-"Nulla ornare pellentesque iaculis."
+-"Curabitur tincidunt augue eget ante faucibus, eu accumsan lacus laoreet."
+-"Nam commodo purus arcu, non fringilla sapien bibendum quis."
+-"Etiam vulputate lacus nec magna condimentum, sit amet tristique sem porta."
+ "Sed a tortor et nibh dictum lobortis."
++"Aenean gravida sem orci, sed interdum elit auctor eget."
