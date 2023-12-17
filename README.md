@@ -121,7 +121,7 @@ scoring:
   formula: "- - + additions deletions comments whitespace"
 ```
 
-The default configuration that is used when no configuration file is provided can be found in [`src/config/examples/default.yaml`](./src/config/examples/default.yaml).
+The default configuration that is used when no configuration file is provided can be found in [`src/config/default.yaml`](./src/config/default.yaml).
 
 The full specification for the configuration file is provided by the JSON schema at [`src/config/schema.json`](./src/config/schema.json).
 
