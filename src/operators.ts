@@ -16,21 +16,84 @@ export const SUPPORTED_OPERATORS: Operator[] = [
   {
     symbol: "+",
     arity: 2,
-    apply: (...operands: number[]) => operands[0] + operands[1]
+    apply: (a: number, b: number) => a + b
   },
   {
     symbol: "-",
     arity: 2,
-    apply: (...operands: number[]) => operands[0] - operands[1]
+    apply: (a: number, b: number) => a - b
   },
   {
     symbol: "*",
     arity: 2,
-    apply: (...operands: number[]) => operands[0] * operands[1]
+    apply: (a: number, b: number) => a * b
   },
   {
     symbol: "/",
     arity: 2,
-    apply: (...operands: number[]) => operands[0] / operands[1]
+    apply: (a: number, b: number): number => {
+      if (b == 0) {
+        throw new Error("Cannot divide by zero")
+      }
+
+      return a / b
+    }
+  },
+  {
+    symbol: "^",
+    arity: 2,
+    apply: (a: number, b: number) => a ** b
+  },
+  {
+    symbol: "?",
+    arity: 3,
+    apply: (expression: number, trueBranch: number, falseBranch: number) => {
+      return expression > 0 ? trueBranch : falseBranch
+    }
+  },
+  {
+    symbol: ">",
+    arity: 2,
+    apply: (a: number, b: number) => a > b ? 1 : 0
+  },
+  {
+    symbol: "<",
+    arity: 2,
+    apply: (a: number, b: number) => a < b ? 1 : 0
+  },
+  {
+    symbol: "==",
+    arity: 2,
+    apply: (a: number, b: number) => a == b ? 1 : 0
+  },
+  {
+    symbol: "!=",
+    arity: 2,
+    apply: (a: number, b: number) => a !== b ? 1 : 0
+  },
+  {
+    symbol: ">=",
+    arity: 2,
+    apply: (a: number, b: number) => a >= b ? 1 : 0
+  },
+  {
+    symbol: "<=",
+    arity: 2,
+    apply: (a: number, b: number) => a <= b ? 1 : 0
+  },
+  {
+    symbol: "&",
+    arity: 2,
+    apply: (a: number, b: number) => a > 0 && b > 0 ? 1 : 0
+  },
+  {
+    symbol: "|",
+    arity: 2,
+    apply: (a: number, b: number) => a > 0 || b > 0 ? 1 : 0
+  },
+  {
+    symbol: "!",
+    arity: 1,
+    apply: (a: number) => a > 0 ? 0 : 1
   },
 ]

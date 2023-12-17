@@ -46,6 +46,15 @@ describe("Formula", () => {
       expect(score.result).to.equal(100)
     })
 
+    it("supports conditional expressions", () => {
+      const formula = new Formula("? >= / deletions + additions deletions 0.9 additions 1000")
+      const changeset = new Changeset({ diff: loadFixture("mostly-deletions") })
+      const score = formula.evaluate(changeset)
+
+      expect(score.error, score.error?.message).to.be.undefined
+      expect(score.result).to.equal(1)
+    })
+
     it("complains if the formula contains an unsupported token", () => {
       const formula = new Formula("+ additions an-unimplemented-feature")
       const score = formula.evaluate(changeset)
