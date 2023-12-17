@@ -29,7 +29,8 @@ export class SizeUp {
     const testFilePatterns = userSuppliedConfig.testFilePatterns || defaultConfig.testFilePatterns
     const changeset = new Changeset({ diff, ignoredFilePatterns, testFilePatterns })
     const categories = new CategoryConfiguration(userSuppliedConfig.categories || defaultConfig.categories!)
-    const formula = new Formula(userSuppliedConfig.scoring?.formula || defaultConfig.scoring!.formula)
+    const aliases = new Map(Object.entries(userSuppliedConfig.scoring?.aliases || defaultConfig.scoring!.aliases || {}))
+    const formula = new Formula(userSuppliedConfig.scoring?.formula || defaultConfig.scoring!.formula, aliases)
 
     return formula.evaluate(changeset, categories)
   }

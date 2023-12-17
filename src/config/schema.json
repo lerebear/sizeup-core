@@ -51,6 +51,16 @@
                 "formula": {
                     "description": "an expression, written in prefix-notation, that describes how to combine features to produce a score",
                     "type": "string"
+                },
+                "aliases": {
+                    "description": "named expression aliases, each of which can be used as shortand in a formula",
+                    "type": "object",
+                    "patternProperties": {
+                        "^[\\w][\\w-]*$": {
+                            "type": "string"
+                        }
+                    },
+                    "additionalProperties": false
                 }
             },
             "required": [

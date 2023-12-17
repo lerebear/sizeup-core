@@ -46,6 +46,12 @@ export interface Configuration {
      * an expression, written in prefix-notation, that describes how to combine features to produce a score
      */
     formula: string;
+    /**
+     * named expression aliases, each of which can be used as shortand in a formula
+     */
+    aliases?: {
+      [k: string]: string;
+    };
   };
   /**
    * glob expressions matching file patterns that should be considered as tests during the scoring process
