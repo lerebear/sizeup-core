@@ -65,6 +65,10 @@ describe("Formula", () => {
 
       expect(score.error, score.error?.message).to.be.undefined
       expect(score.result).to.equal(0)
+      expect(score.variableSubstitutions.get('deletions')).to.equal(9)
+      expect(score.variableSubstitutions.get('additions')).to.equal(1)
+      expect(score.variableSubstitutions.get('boosted-deletions')).to.equal(18)
+      expect(score.variableSubstitutions.get('boosted-additions')).to.equal(18)
     })
 
     it("complains if the formula contains an unsupported token", () => {
