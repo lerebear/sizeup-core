@@ -43,8 +43,15 @@ export class Formula {
       if (this.cache.has(token)) {
         stack.push(this.cache.get(token)!)
       } else if (this.isAlias(token)) {
-        const aliasFormula = new Formula(this.aliases.get(token)!, this.aliases, this.cache)
-        stack.push(aliasFormula.evaluate(changeset).result!)
+        const formula = new Formula(this.aliases.get(token)!, this.aliases, this.cache)
+        const score = formula.evaluate(changeset)
+
+        for (const [name, value] of score.variableSubstitutions.entries()) {
+          result.recordVariableSubstitution(name, value)
+        }
+        result.recordVariableSubstitution(token, score.result!)
+
+        stack.push(score.result!)
       } else if (this.isFeature(token)) {
         const FeatureClass = FeatureRegistry.get(token)!
         const feature = new FeatureClass(changeset)
