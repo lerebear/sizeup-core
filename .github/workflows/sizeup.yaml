@@ -14,7 +14,7 @@ jobs:
 
     steps:
       - name: Estimate pull request reviewability
-        uses: lerebear/sizeup-action@4118771730895cadfd01f861ce522406930cdbbe
+        uses: lerebear/sizeup-action@09c04bdb8ea1096d0bf2275088387fe695129622
         id: sizeup-action
         with:
           token: "${{ secrets.GITHUB_TOKEN }}"
