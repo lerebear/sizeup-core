@@ -42,36 +42,3 @@ console.log(score.toString())
 ```
 
 The final log statement in that snippet will output a serialized `Score`:
-
-```jsonc
-{
-  // The expression (written in prefix notation) used to score the diff
-  "formula": "- - + additions deletions comments whitespace",
-
-  // The values that were substituted for each variable in the formula
-  "variableSubstitutions": [
-    [
-      "additions",
-      11
-    ],
-    [
-      "deletions",
-      3
-    ],
-    [
-      "comments",
-      6
-    ],
-    [
-      "whitespace",
-      1
-    ]
-  ],
-
-  // The score the diff received when evaluated according to the formula
-  "value": 7,
-
-  // The category the diff was assigned based on its score
-  "category": "xs"
-}
-```
