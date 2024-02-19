@@ -1,2 +1,11 @@
 # Add custom sizeup-action configuration here.
 # https://github.com/lerebear/sizeup-action#configuration
+commenting:
+  excludeDraftPullRequests: false
+  scoreThreshold: 1
+  commentTemplate: |
+    👋 @{{author}} this pull request exceeds the configured reviewability score threshold in this repository.
+
+    Please consider [these steps]() for delivering this pull request in smaller increments.
+
+    {{score-details}}
