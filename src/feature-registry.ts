@@ -8,10 +8,10 @@ import SingleWords from "./features/single-words"
 import Tests from "./features/tests"
 import Whitespace from "./features/whitespace"
 
-type FeatureClass = new (changeset: Changeset) => Feature
+type FeatureConstructor = new (changeset: Changeset) => Feature
 
 /** The collection of features that are available for use in an evaluation formula. */
-export const FeatureRegistry: Map<string, FeatureClass> = new Map(
+export const FeatureRegistry: Map<string, FeatureConstructor> = new Map(
   [
     [Additions.variableName(), Additions],
     [Comments.variableName(), Comments],

@@ -6,6 +6,7 @@ import * as path from "path"
 import { CategoryConfiguration } from "./category-configuration";
 import { Score } from "./score";
 import { Configuration } from "./configuration";
+import { Context } from "./context";
 
 export class SizeUp {
   /**
@@ -30,9 +31,10 @@ export class SizeUp {
     const changeset = new Changeset({ diff, ignoredFilePatterns, testFilePatterns })
     const categories = new CategoryConfiguration(userSuppliedConfig.categories || defaultConfig.categories!)
     const aliases = new Map(Object.entries(userSuppliedConfig.scoring?.aliases || defaultConfig.scoring!.aliases || {}))
-    const formula = new Formula(userSuppliedConfig.scoring?.formula || defaultConfig.scoring!.formula, aliases)
+    const context = new Context({ changeset, aliases, categories })
+    const formula = new Formula(userSuppliedConfig.scoring?.formula || defaultConfig.scoring!.formula)
 
-    return formula.evaluate(changeset, categories)
+    return formula.evaluate(context)
   }
 }
 

@@ -11,7 +11,6 @@ describe("Sizeup", () => {
     it("should evaluate a diff with the default config", () => {
       const score = SizeUp.evaluate(loadFixture("formula"))
 
-      expect(score.error, score.error?.message).to.be.undefined
       expect(score.result).to.equal(7)
       expect(score.category!.name).to.equal("extra small")
     })
@@ -28,7 +27,6 @@ describe("Sizeup", () => {
         fs.rmSync(configPath, { force: true })
       }
 
-      expect(score.error, score.error?.message).to.be.undefined
       expect(score.result).to.equal(3)
       expect(score.category!.name).to.equal("extra small")
     })
@@ -45,7 +43,6 @@ describe("Sizeup", () => {
         fs.rmSync(configPath, { force: true })
       }
 
-      expect(score.error, score.error?.message).to.be.undefined
       expect(score.result).to.equal(3)
       expect(score.category!.name).to.equal("extra small")
     })

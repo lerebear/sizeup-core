@@ -1,5 +1,5 @@
 import { expect } from "chai"
-import { FeatureRegistry } from "../src/registry"
+import { FeatureRegistry } from "../src/feature-registry"
 
 describe("FeatureRegistry", () => {
   describe("get", () => {
