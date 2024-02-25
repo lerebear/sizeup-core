@@ -1,6 +1,6 @@
 {
   "name": "sizeup-core",
-  "version": "0.4.1",
+  "version": "0.5.0",
   "description": "A library for estimating how difficult a diff will be to review",
   "author": "Ọlálérè Williams",
   "homepage": "https://github.com/lerebear/sizeup-core",
