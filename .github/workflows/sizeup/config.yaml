@@ -1,2 +1,5 @@
 # Add custom sizeup-action configuration here.
 # https://github.com/lerebear/sizeup-action#configuration
+archiving:
+    persistScoreArtifact: true
+    excludeDraftPullRequests: false

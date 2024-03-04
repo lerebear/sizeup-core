@@ -14,9 +14,9 @@ jobs:
 
     steps:
       - name: Estimate pull request reviewability
-        uses: lerebear/sizeup-action@v0.5.5
+        uses: lerebear/sizeup-action@09f059dfbcdf3103610540e851e478d8e00dc20c
         id: sizeup-action
         with:
           token: "${{ secrets.GITHUB_TOKEN }}"
           # Uncomment line below to use custom sizeup-action configuration.
-          # configuration-file-path: ".github/workflows/sizeup/config.yaml"
+          configuration-file-path: ".github/workflows/sizeup/config.yaml"
