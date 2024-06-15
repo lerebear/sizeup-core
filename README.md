@@ -211,10 +211,7 @@ This section contains notes for how to develop this library.
 
 We use a [JSON schema](./src/config/schema.json) to define the configuration options that this library supports. We then use the [`json-schema-to-typescript`](https://www.npmjs.com/package/json-schema-to-typescript) package to generate the [TypeScript `Configuration` interface](./src/configuration.ts) that we use in code.
 
-[`json-schema-to-typescript`](https://www.npmjs.com/package/json-schema-to-typescript) has two notable shortcomings:
-
-- It uses outdated type definitions which are incompatible with the latest version of [`minimatch`](https://www.npmjs.com/package/minimatch) that we use in this package. This creates build errors if `json-schema-to-typescript` is  added as a dependency of this package.
-- It generates a type definition for the `categories` array this is difficult to work with (it wraps a category object in an array e.g. `[{name:}]` rather than using an array suffix e.g. `{name:}[]`).
+[`json-schema-to-typescript`](https://www.npmjs.com/package/json-schema-to-typescript) uses outdated type definitions which are incompatible with the latest version of [`minimatch`](https://www.npmjs.com/package/minimatch) that we use in this package. This creates build errors if `json-schema-to-typescript` is  added as a dependency of this package.
 
 To work around those issues, we use the following workflow to regenerate the `Configuration` interface after we've made a change to the schema:
 
@@ -235,9 +232,7 @@ npx \
   src/configuration.ts
 ```
 
-3. Manually modify the `Configuration.categories` key to use an array suffix.
-
-4. Remove `json-schema-to-typescript` so that we can again build this package without errors.
+3. Remove `json-schema-to-typescript` so that we can again build this package without errors.
 
 ```sh
 npm uninstall json-schema-to-typescript

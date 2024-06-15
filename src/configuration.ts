@@ -10,9 +10,11 @@
  */
 export interface Configuration {
   /**
+   * a list of options that should be forwarded to `git diff` when generating the diff to evaluate
+   */
+  gitDiffOptions?: string[];
+  /**
    * category that will be assigned to a pull request depending on its score
-   *
-   * @minItems 1
    */
   categories?: {
     /**
@@ -50,6 +52,10 @@ export interface Configuration {
      * named expression aliases, each of which can be used as shortand in a formula
      */
     aliases?: {
+      /**
+       * This interface was referenced by `undefined`'s JSON-Schema definition
+       * via the `patternProperty` "^[\w][\w-]*$".
+       */
       [k: string]: string;
     };
   };
