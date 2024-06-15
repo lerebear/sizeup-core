@@ -4,10 +4,16 @@
     "description": "YAML configuration accepted by sizeup",
     "type": "object",
     "properties": {
+        "gitDiffOptions": {
+            "description": "a list of options that should be forwarded to `git diff` when generating the diff to evaluate",
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        },
         "categories": {
             "description": "category that will be assigned to a pull request depending on its score",
             "type": "array",
-            "minItems": 1,
             "items": {
                 "type": "object",
                 "properties": {

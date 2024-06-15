@@ -8,21 +8,21 @@ import { Configuration } from "../src/configuration"
 
 describe("Sizeup", () => {
   describe("#evaluate", () => {
-    it("should evaluate a diff with the default config", () => {
-      const score = SizeUp.evaluate(loadFixture("formula"))
+    it("should evaluate a diff with the default config", async () => {
+      const score = await SizeUp.evaluate(loadFixture("formula"))
 
       expect(score.result).to.equal(7)
       expect(score.category!.name).to.equal("extra small")
     })
 
-    it("should evaluate a diff with a user-supplied config", () => {
+    it("should evaluate a diff with a user-supplied config", async () => {
       let score: Score
       const config: Configuration = {scoring: {formula: "deletions"}}
       const configPath = path.resolve(__dirname, '/tmp/sizeup.yaml')
 
       try {
         fs.writeFileSync(configPath, YAML.stringify(config))
-        score = SizeUp.evaluate(loadFixture("formula"), configPath)
+        score = await SizeUp.evaluate(loadFixture("formula"), configPath)
       } finally {
         fs.rmSync(configPath, { force: true })
       }
@@ -31,14 +31,14 @@ describe("Sizeup", () => {
       expect(score.category!.name).to.equal("extra small")
     })
 
-    it("should evaluate a diff with a user-supplied config in sizeup-action format", () => {
+    it("should evaluate a diff with a user-supplied config in sizeup-action format", async () => {
       let score: Score
       const config = {sizeup: {scoring: {formula: "deletions"}}}
       const configPath = path.resolve(__dirname, '/tmp/sizeup.yaml')
 
       try {
         fs.writeFileSync(configPath, YAML.stringify(config))
-        score = SizeUp.evaluate(loadFixture("formula"), configPath)
+        score = await SizeUp.evaluate(loadFixture("formula"), configPath)
       } finally {
         fs.rmSync(configPath, { force: true })
       }

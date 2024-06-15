@@ -12,7 +12,7 @@ export class CategoryConfiguration {
       throw new Error("You must provide at least one category")
     }
 
-    const sorted = categories.sort((a, b) => {
+    const sorted = categories!.sort((a, b) => {
       if (a.lte && b.lte) {
         return a.lte - b.lte
       } else if (a.lte) {
