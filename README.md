@@ -224,12 +224,7 @@ npm install --save-dev json-schema-to-typescript
 2. Regenerate the `Configuration` interface using this command:
 
 ```sh
-npx \
-  json2ts \
-  --maxItems=-1 \
-  --additionalProperties=false \
-  src/config/schema.json \
-  src/configuration.ts
+npm run generate:config
 ```
 
 3. Remove `json-schema-to-typescript` so that we can again build this package without errors.

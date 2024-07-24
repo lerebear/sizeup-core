@@ -57,7 +57,7 @@ export class SizeUp {
     } else {
       const git = new Git(diffOrRemote.token)
       await git.clone(diffOrRemote.repo, diffOrRemote.headRef, diffOrRemote.cloneDirectory)
-      diff = await git.diff(diffOrRemote.baseRef, userSuppliedConfig.gitDiffOptions || defaultConfig.gitDiffOptions || [])
+      diff = await git.diff(diffOrRemote.baseRef, diffOrRemote.diffOptions || [])
     }
 
     return new Context(
