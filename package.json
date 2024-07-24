@@ -30,6 +30,7 @@
     "build": "npx tsc && npm run copy-assets",
     "lint": "eslint . --ext .ts --config .eslintrc",
     "copy-assets": "mkdir -p dist/config && cp -r src/config dist",
+    "generate:config": "npx json2ts --maxItems=-1 --additionalProperties=false src/config/schema.json src/configuration.ts",
     "prepack": "npm run build",
     "posttest": "npm run lint",
     "test": "mocha \"test/**/*.test.ts\""

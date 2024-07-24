@@ -10,10 +10,6 @@
  */
 export interface Configuration {
   /**
-   * a list of options that should be forwarded to `git diff` when generating the diff to evaluate
-   */
-  gitDiffOptions?: string[];
-  /**
    * category that will be assigned to a pull request depending on its score
    */
   categories?: {
