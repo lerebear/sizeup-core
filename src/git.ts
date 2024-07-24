@@ -2,6 +2,7 @@ import {simpleGit, SimpleGit} from 'simple-git'
 
 export class Git {
   private client: SimpleGit
+  private baseDirectory: string
 
   constructor(token: string, baseDirectory: string = '.') {
     const basicCredential = Buffer.from(
@@ -10,6 +11,7 @@ export class Git {
     ).toString('base64')
     const authorizationHeader = `AUTHORIZATION: basic ${basicCredential}`
 
+    this.baseDirectory = baseDirectory
     this.client = simpleGit(baseDirectory, {
       trimmed: true,
       config: [`http.extraheader=${authorizationHeader}`]
@@ -28,9 +30,8 @@ export class Git {
   async clone(
     repo: string,
     headRef: string,
-    targetDirectory: string = '.'
   ): Promise<void> {
-    await this.client.clone(`https://github.com/${repo}`, targetDirectory, [
+    await this.client.clone(`https://github.com/${repo}`, this.baseDirectory, [
       `--branch=${headRef}`,
       '--filter=tree:0',
       '--no-tags',
