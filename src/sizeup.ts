@@ -55,8 +55,8 @@ export class SizeUp {
     if (typeof diffOrRemote === "string") {
       diff = diffOrRemote
     } else {
-      const git = new Git(diffOrRemote.token)
-      await git.clone(diffOrRemote.repo, diffOrRemote.headRef, diffOrRemote.cloneDirectory)
+      const git = new Git(diffOrRemote.token, diffOrRemote.cloneDirectory)
+      await git.clone(diffOrRemote.repo, diffOrRemote.headRef)
       diff = await git.diff(diffOrRemote.baseRef, diffOrRemote.diffOptions || [])
     }
 
