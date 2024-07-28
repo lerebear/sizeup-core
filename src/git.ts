@@ -2,8 +2,13 @@ import {simpleGit, SimpleGit} from 'simple-git'
 
 export class Git {
   private client: SimpleGit
-  private baseDirectory: string
 
+  /**
+   * Constructs a new Git client
+   *
+   * @param token GitHub API token
+   * @param baseDirectory The default directory in which to run `git` commands
+   */
   constructor(token: string, baseDirectory: string = '.') {
     const basicCredential = Buffer.from(
       `x-access-token:${token}`,
@@ -11,7 +16,6 @@ export class Git {
     ).toString('base64')
     const authorizationHeader = `AUTHORIZATION: basic ${basicCredential}`
 
-    this.baseDirectory = baseDirectory
     this.client = simpleGit(baseDirectory, {
       trimmed: true,
       config: [`http.extraheader=${authorizationHeader}`]
@@ -30,8 +34,9 @@ export class Git {
   async clone(
     repo: string,
     headRef: string,
+    targetDirectory: string = '.'
   ): Promise<void> {
-    await this.client.clone(`https://github.com/${repo}`, this.baseDirectory, [
+    await this.client.clone(`https://github.com/${repo}`, targetDirectory, [
       `--branch=${headRef}`,
       '--filter=tree:0',
       '--no-tags',
@@ -46,18 +51,22 @@ export class Git {
    * @param baseRef The base branch relative to which we should produce a diff. This method assumes
    *   that the head ref containing changes relative to this base ref has already been fetched using
    *   the `headRef` argument to the `clone` method.
+   * @param gitDiffOptions Options to forward to the `git diff` command
+   * @param cwd The local directory in which to run the `git` commands
    * @returns The diff of the given pull request or `undefined` if we failed to retrieve it.
    */
-  async diff(baseRef: string, gitDiffOptions: string[]): Promise<string> {
-    await this.client.fetch([
-      'origin',
-      `+${baseRef}:${baseRef}`,
-      `--filter=tree:0`,
-      '--no-tags',
-      '--prune',
-      '--no-recurse-submodules'
-    ])
-
-    return this.client.diff(['--merge-base', baseRef].concat(gitDiffOptions))
+  async diff(baseRef: string, gitDiffOptions: string[], cwd: string = '.'): Promise<string> {
+    return await this
+      .client
+      .cwd({ path: cwd })
+      .fetch([
+        'origin',
+        `+${baseRef}:${baseRef}`,
+        `--filter=tree:0`,
+        '--no-tags',
+        '--prune',
+        '--no-recurse-submodules'
+      ])
+      .diff(['--merge-base', baseRef].concat(gitDiffOptions))
   }
 }
