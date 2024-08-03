@@ -55,7 +55,7 @@ export class Git {
    * @param cwd The local directory in which to run the `git` commands
    * @returns The diff of the given pull request or `undefined` if we failed to retrieve it.
    */
-  async diff(baseRef: string, gitDiffOptions: string[], cwd: string = '.'): Promise<string> {
+  async diff(baseRef: string, gitDiffOptions: string[] = [], cwd: string = '.'): Promise<string> {
     return await this
       .client
       .cwd({ path: cwd })
