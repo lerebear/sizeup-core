@@ -41,12 +41,12 @@ export class SizeUp {
     return formula.evaluate(context)
   }
 
-  static async clone(token: string, repo: string, headRef: string, targetDirectory?: string): Promise<void> {
+  static async clone(token: string, repo: string, headRef: string, targetDirectory: string = '.'): Promise<void> {
     const git = new Git(token)
     git.clone(repo, headRef, targetDirectory)
   }
 
-  static async diff(token: string, baseRef: string, gitDiffOptions?: string[], cwd?: string): Promise<string> {
+  static async diff(token: string, baseRef: string, gitDiffOptions?: string[], cwd: string = '.'): Promise<string> {
     const git = new Git(token)
     return git.diff(baseRef, gitDiffOptions, cwd)
   }
