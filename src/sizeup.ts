@@ -97,5 +97,3 @@ export interface Remote {
 }
 
 export { Score } from "./score";
-export { Context } from "./context";
-export { CategoryConfiguration } from "./category-configuration"
