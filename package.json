@@ -21,9 +21,9 @@
     "typescript": "^5.2.2"
   },
   "dependencies": {
-    "minimatch": "^9.0.3",
+    "minimatch": "^10.0.1",
     "parse-diff": "^0.11.1",
-    "simple-git": "^3.25.0",
+    "simple-git": "^3.27.0",
     "yaml": "^2.3.2"
   },
   "scripts": {
