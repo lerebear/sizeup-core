@@ -1,2 +1,66 @@
-# Add custom sizeup-action configuration here.
-# https://github.com/lerebear/sizeup-action#configuration
+labeling:
+
+  # Whether or not to add a label to each pull request to indicate its assessed category
+  applyCategoryLabels: true
+
+  # The prefix to add to each category label that we apply.
+  categoryLabelPrefix: "pr_sizeup/"
+
+commenting:
+
+  # Whether or not to comment on pull requests that exceed the configured score threshold
+  addCommentWhenScoreThresholdHasBeenExceeded: true
+
+  # The threshold above which we will add a comment to the assessed pull request.
+  scoreThreshold: 500
+
+  # The template for the comment that should be added to each pull request that
+  # exceeds the score threshold. Any of the following variables can be included
+  # in the template with surrounding curly braces (e.g. {{author}}) in order to
+  # interpolate a computed value into the comment:
+  #
+  #   - author
+  #   - threshold
+  #   - score
+  #   - category
+  #   - score-details
+  commentTemplate: |
+    👋 @{{author}} this pull request exceeds the configured reviewability score threshold of {{threshold}}. Your actual score was {{score}}.
+    The PR category is {{category}}.
+
+# Configuration for how to evaluate pull requests.
+# This is of the same format that `sizeup-core` accepts directly.
+sizeup:
+  categories:
+    - name: extra small
+      lte: 10
+      label:
+        name: xs
+        color: 3cbf00
+    - name: small
+      lte: 30
+      label:
+        name: s
+        color: 5d9801
+    - name: medium
+      lte: 100
+      label:
+        name: m
+        color: 7f7203
+    - name: large
+      lte: 500
+      label:
+        name: l
+        color: a14c05
+    - name: extra large
+      label:
+        name: xl
+        color: c32607
+  ignoredFilePatterns:
+    - CODEOWNERS
+    - SERVICEOWNERS
+  testFilePatterns:
+    - "*_test.rb"
+  scoring:
+    formula: "- - + additions deletions"
+
