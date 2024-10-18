@@ -74,17 +74,25 @@ export abstract class Node {
     return this.token
   }
 
-  private static _build(tokens: string[], position: number, context: Context): Node {
-    const token = tokens.shift()!
+  private static _build(remainingTokens: string[], position: number, context: Context): Node {
+    const token = remainingTokens.shift()
+
+    if (!token) {
+      throw new Error(
+        "The provided scoring formula is invalid. " +
+        "Please check that the formula and any aliases are each valid prefix-notation expressions."
+      )
+    }
+
     const node = Node.from(token, position, context)
 
-    if (node instanceof OperatorNode && tokens.length < node.operator.arity) {
+    if (node instanceof OperatorNode && remainingTokens.length < node.operator.arity) {
       throw new Error(`Not enough operands for operator ${token} at position ${position}`)
     }
 
     if (node instanceof OperatorNode) {
       for (let i = 0; i < node.operator.arity; i++) {
-        node.children.push(Node._build(tokens, position + i + 1, context))
+        node.children.push(Node._build(remainingTokens, position + i + 1, context))
       }
     }
 
