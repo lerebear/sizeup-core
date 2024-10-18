@@ -85,6 +85,12 @@ describe("Formula", () => {
       expect(() => formula.evaluate(context)).to.throw('Expression "+ additions 10 20" contains an unreachable suffix: "20"')
     })
 
+    it("complains if the formula contains too many operators", () => {
+      const formula = new Formula("- - + additions 10 20")
+
+      expect(() => formula.evaluate(context)).to.throw(/^The provided scoring formula is invalid/)
+    })
+
     it("complains if an alias has the same name as a feature", () => {
       const formula = new Formula("+ additions 9")
       const aliases = new Map([["additions", "1"]])
