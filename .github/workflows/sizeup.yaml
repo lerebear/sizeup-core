@@ -13,11 +13,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Estimate pull request reviewability
-        uses: lerebear/sizeup-action@v0.8.9
-        id: sizeup-action
-        with:
-          token: "${{ secrets.GITHUB_TOKEN }}"
-          git-diff-options: "--ignore-space-change"
-          # Uncomment line below to use custom sizeup-action configuration.
-          # configuration-file-path: ".github/workflows/sizeup/config.yaml"
+        - name: Estimate pull request reviewability
+          uses: lerebear/sizeup-action@v0.8.9
+          id: sizeup-action
+          with:
+            token: "${{ secrets.GITHUB_TOKEN }}"
+            git-diff-options: "--ignore-space-change"
+            # Uncomment line below to use custom sizeup-action configuration.
+            # configuration-file-path: ".github/workflows/sizeup/config.yaml"
