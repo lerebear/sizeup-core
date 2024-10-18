@@ -62,5 +62,5 @@ sizeup:
   testFilePatterns:
     - "*_test.rb"
   scoring:
-    formula: "- - + additions deletions"
+    formula: "+ additions deletions"
 
