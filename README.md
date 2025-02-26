@@ -232,3 +232,19 @@ npm run generate:config
 ```sh
 npm uninstall json-schema-to-typescript
 ```
+
+### Releasing a new version
+
+- This library is released as a package on NPM.
+  - Publishing a new version to NPM follows standard practice e.g:
+
+  ```sh
+  npm version patch
+  git push --follow-tags
+
+  # Wait for build to complete successfully
+
+  npm publish
+  ```
+- A new GitHub release is also created for each tag that is packaged for NPM.
+  - Those releases are created from https://github.com/lerebear/sizeup-core/releases/new. After selecting the appropriate tag, we typically generally release notes automatically using the button in the UI.
