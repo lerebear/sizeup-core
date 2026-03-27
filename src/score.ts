@@ -1,5 +1,5 @@
-import { Categories } from "./category-configuration"
 import { ArrayElement } from "./array-element"
+import { Categories } from "./category-configuration"
 import { Context } from "./context"
 
 /** Reports the result of evaluating a Changeset for reviewability. */
@@ -22,7 +22,7 @@ export class Score {
     this.expression = expression
 
     // Round to two decimal places: https://stackoverflow.com/a/11832950
-    this.result = Math.round((result + Number.EPSILON) * 100) / 100,
+    this.result = Math.round((result + Number.EPSILON) * 100) / 100
 
     this.context = context
   }
