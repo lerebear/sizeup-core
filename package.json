@@ -13,7 +13,7 @@
     "@eslint/js": "^10.0.1",
     "@types/chai": "^4.3.6",
     "@types/mocha": "^10.0.1",
-    "@types/node": "^20.6.2",
+    "@types/node": "^25.6.0",
     "@typescript-eslint/eslint-plugin": "^8.57.2",
     "@typescript-eslint/parser": "^8.57.2",
     "chai": "^4.3.8",
